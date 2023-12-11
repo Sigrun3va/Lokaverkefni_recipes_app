@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipes_app/items/category_item.dart';
 import 'package:recipes_app/screens/christmas/recipes_screen.dart';
 import 'package:recipes_app/screens/category/category_detail_screen.dart';
+import 'package:recipes_app/screens/category/bake_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final List<String> categories = [
@@ -54,8 +55,8 @@ class HomeScreen extends StatelessWidget {
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 24.0,
-                            vertical: 20.0
+                          horizontal: 24.0,
+                          vertical: 20.0,
                         ),
                         decoration: const BoxDecoration(
                           color: Color(0xFF181818),
@@ -139,15 +140,41 @@ class HomeScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Container(
-                      width: 250,
-                      color: Colors.grey,
-                      child: Center(
-                        child: Text(
-                          'Bake ${index + 1}',
-                          style: const TextStyle(color: Colors.white),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => BakeDetailScreen(
+                            bakeName: 'Bake ${index + 1}',
+                            imagePath: 'assets/images/comingsoon.jpg',
+                            description: 'Description for Bake ${index + 1}',
+                            ingredients: const ['Ingredient 1', 'Ingredient 2'],
+                            instructions: 'Instructions for Bake ${index + 1}',
+                          ),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Card(
+                        color: const Color(0xFF181818),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/images/comingsoon.jpg',
+                              width: 200,
+                              height: 240,
+                              fit: BoxFit.cover,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Bake ${index + 1}',
+                                style: const TextStyle(fontSize: 18, color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
