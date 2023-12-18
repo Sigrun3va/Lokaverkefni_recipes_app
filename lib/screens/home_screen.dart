@@ -3,8 +3,26 @@ import 'package:recipes_app/items/category_item.dart';
 import 'package:recipes_app/screens/christmas/recipes_screen.dart';
 import 'package:recipes_app/screens/category/category_detail_screen.dart';
 import 'package:recipes_app/screens/category/bake_detail_screen.dart';
+import 'package:recipes_app/screens/profile/profile_screen.dart';
+import 'package:recipes_app/screens/search/search_screen.dart';
+import 'package:recipes_app/items/bottom_bar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int currentIndex = 0;
+
+  void setCurrentIndex(int index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   final List<String> categories = [
     'Cupcakes',
     'Cakes',
@@ -20,8 +38,6 @@ class HomeScreen extends StatelessWidget {
     'Desserts',
     'Seasonal',
   ];
-
-  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -105,9 +121,10 @@ class HomeScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => CategoryDetailScreen(
-                            categoryName: categories[index],
-                          ),
+                          builder: (context) =>
+                              CategoryDetailScreen(
+                                categoryName: categories[index],
+                              ),
                         ),
                       );
                     },
@@ -144,13 +161,19 @@ class HomeScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => BakeDetailScreen(
-                            bakeName: 'Bake ${index + 1}',
-                            imagePath: 'assets/images/comingsoon.jpg',
-                            description: 'Description for Bake ${index + 1}',
-                            ingredients: const ['Ingredient 1', 'Ingredient 2'],
-                            instructions: 'Instructions for Bake ${index + 1}',
-                          ),
+                          builder: (context) =>
+                              BakeDetailScreen(
+                                bakeName: 'Bake ${index + 1}',
+                                imagePath: 'assets/images/comingsoon.jpg',
+                                description: 'Description for Bake ${index +
+                                    1}',
+                                ingredients: const [
+                                  'Ingredient 1',
+                                  'Ingredient 2'
+                                ],
+                                instructions: 'Instructions for Bake ${index +
+                                    1}',
+                              ),
                         ),
                       );
                     },
@@ -170,7 +193,8 @@ class HomeScreen extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 'Bake ${index + 1}',
-                                style: const TextStyle(fontSize: 18, color: Colors.white),
+                                style: const TextStyle(
+                                    fontSize: 18, color: Colors.white),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -186,6 +210,8 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (index) => _navigateToScreen(index, context, currentIndex),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
@@ -196,5 +222,26 @@ class HomeScreen extends StatelessWidget {
         selectedItemColor: Colors.lightBlue,
       ),
     );
+  }
+
+  void _navigateToScreen(int index, BuildContext context, int currentIndex) {
+    if (index == currentIndex) {
+      return;
+    }
+
+    switch (index) {
+      case 0:
+        break;
+      case 1:
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const SearchScreen()),
+        );
+        break;
+      case 2:
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const ProfileScreen()),
+        );
+        break;
+    }
   }
 }
