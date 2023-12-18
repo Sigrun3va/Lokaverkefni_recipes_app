@@ -5,7 +5,6 @@ import 'package:recipes_app/screens/category/category_detail_screen.dart';
 import 'package:recipes_app/screens/category/bake_detail_screen.dart';
 import 'package:recipes_app/screens/profile/profile_screen.dart';
 import 'package:recipes_app/screens/search/search_screen.dart';
-import 'package:recipes_app/items/bottom_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
