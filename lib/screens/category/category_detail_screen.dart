@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/database/recipe_database.dart';
-import '../../main.dart';
+import 'package:recipes_app/database/recipe_service.dart';
 import 'recipe_detail_screen.dart';
 import 'package:recipes_app/items/app_bar.dart';
 
@@ -19,9 +19,15 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   @override
   void initState() {
     super.initState();
-    final categoryRecipes = recipeDatabase.getRecipesByCategory(widget.categoryName);
+    loadCategoryRecipes();
+  }
+
+  Future<void> loadCategoryRecipes() async {
+    List<RecipeModel> allRecipes = await RecipeService().loadRecipes();
     setState(() {
-      recipesForCategory = categoryRecipes;
+      recipesForCategory = allRecipes
+          .where((recipe) => recipe.category.toLowerCase() == widget.categoryName.toLowerCase())
+          .toList();
     });
   }
 

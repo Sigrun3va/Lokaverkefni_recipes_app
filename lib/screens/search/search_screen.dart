@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:recipes_app/screens/category/recipe_detail_screen.dart';
 import 'package:recipes_app/screens/home_screen.dart';
 import 'package:recipes_app/screens/profile/profile_screen.dart';
+import 'package:recipes_app/database/recipe_database.dart';
+import 'package:recipes_app/database/recipe_service.dart';
+import 'dart:math';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -19,10 +23,19 @@ class SearchScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildSearchBar(),
+            _buildSearchBar(context),
             const SizedBox(height: 20),
-            _buildSearchSuggestion('Surprise Me!', Icons.shuffle),
-            _buildSearchSuggestion('Most Popular!', Icons.trending_up_rounded),
+            _buildSearchSuggestion('Surprise Me!', Icons.shuffle, () async {
+              final randomRecipe = await getRandomRecipe();
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) =>
+                      RecipeDetailsScreen(recipe: randomRecipe),
+                ),
+              );
+            }),
+            _buildSearchSuggestion(
+                'Most Popular!', Icons.trending_up_rounded, () {}),
           ],
         ),
       ),
@@ -41,29 +54,32 @@ class SearchScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSearchBar() {
+  Widget _buildSearchBar(BuildContext context) {
     return TextField(
-        style: const TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-          labelText: 'Search for a recipe..',
-          labelStyle: const TextStyle(color: Colors.grey),
-          suffixIcon: const Icon(Icons.search, color: Colors.white),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.lightBlue, width: 1),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.lightBlue, width: 2),
-            borderRadius: BorderRadius.circular(10),
-          ),
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        labelText: 'Search for a recipe..',
+        labelStyle: const TextStyle(color: Colors.grey),
+        suffixIcon: const Icon(Icons.search, color: Colors.white),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.lightBlue, width: 1),
+          borderRadius: BorderRadius.circular(10),
         ),
-        onSubmitted: (String value) {}
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.lightBlue, width: 2),
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      onSubmitted: (String value) async {
+        final results = await searchRecipes(value);
+      },
     );
   }
 
-  Widget _buildSearchSuggestion(String title, IconData icon) {
+  Widget _buildSearchSuggestion(
+      String title, IconData icon, VoidCallback onTap) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         margin: const EdgeInsets.only(bottom: 10),
@@ -83,6 +99,23 @@ class SearchScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<List<RecipeModel>> searchRecipes(String query) async {
+    final recipeService = RecipeService();
+    final allRecipes = await recipeService.loadRecipes();
+    final queryLower = query.toLowerCase();
+    return allRecipes.where((recipe) {
+      final recipeLower = recipe.name.toLowerCase();
+      return recipeLower.contains(queryLower);
+    }).toList();
+  }
+
+  Future<RecipeModel> getRandomRecipe() async {
+    final recipeService = RecipeService();
+    final allRecipes = await recipeService.loadRecipes();
+    final random = Random();
+    return allRecipes[random.nextInt(allRecipes.length)];
   }
 
   void _navigateToScreen(int index, BuildContext context, int currentIndex) {
@@ -106,5 +139,3 @@ class SearchScreen extends StatelessWidget {
     }
   }
 }
-
-

@@ -25,7 +25,7 @@ class RecipeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('12 Recipes for Christmas'),
+        title: const Text('12 recipes.json for Christmas'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {

@@ -1,0 +1,459 @@
+[
+  {
+    "name": "Vanilla Bean Cupcakes",
+    "description": "Light and fluffy cupcakes infused with vanilla bean.",
+    "ingredients": ["1 3/4 cups all-purpose flour", "1 cup sugar", "1/2 cup butter, softened", "2 eggs", "1 vanilla bean, scraped", "1/2 cup whole milk", "1 1/2 tsp baking powder", "1/4 tsp salt"],
+    "instructions": "1. Preheat oven to 350°F. Cream butter and sugar...\n2. Add eggs and vanilla bean...\n3. Mix in dry ingredients alternately with milk...\n4. Divide batter into cupcake liners and bake for 20 minutes.",
+    "category": "Cupcakes",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Chocolate Cupcakes",
+    "description": "Rich and moist chocolate cupcakes with a creamy chocolate frosting.",
+    "ingredients": ["1 1/2 cups all-purpose flour", "1 cup sugar", "1/2 cup cocoa powder", "1 cup milk", "1/2 cup vegetable oil", "2 eggs", "1 tsp baking soda", "1/2 tsp salt", "1 tsp vanilla extract"],
+    "instructions": "1. Preheat oven to 350°F. Mix flour, cocoa powder, baking soda, and salt...\n2. In another bowl, beat eggs, sugar, oil, and vanilla...\n3. Combine with dry ingredients and add milk...\n4. Pour into cupcake liners and bake for 20-25 minutes.",
+    "category": "Cupcakes",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Red Velvet Cupcakes",
+    "description": "Velvety cupcakes with a hint of cocoa and a vibrant red color, topped with cream cheese frosting.",
+    "ingredients": ["2 1/2 cups all-purpose flour", "1 1/2 cups sugar", "1 cup buttermilk", "1 cup vegetable oil", "2 eggs", "2 tbsp cocoa powder", "1 tsp baking soda", "1 tsp vinegar", "1 tsp vanilla extract", "2 tbsp red food coloring"],
+    "instructions": "1. Preheat oven to 350°F. Mix flour, cocoa powder, and baking soda...\n2. In another bowl, combine eggs, sugar, oil, vinegar, vanilla, and food coloring...\n3. Gradually add dry ingredients to wet mixture alternating with buttermilk...\n4. Fill cupcake liners and bake for 20 minutes.",
+    "category": "Cupcakes",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Lemon Cupcakes",
+    "description": "Light cupcakes with a fresh lemon flavor and lemon buttercream frosting.",
+    "ingredients": ["1 3/4 cups all-purpose flour", "1 cup sugar", "1/2 cup butter, softened", "3 eggs", "1 tsp baking powder", "1/4 tsp salt", "1/2 cup milk", "2 tbsp lemon zest", "2 tbsp lemon juice"],
+    "instructions": "1. Preheat oven to 350°F. Cream butter and sugar...\n2. Add eggs one at a time, then lemon zest and juice...\n3. Combine flour, baking powder, and salt; add to wet mixture alternately with milk...\n4. Fill cupcake liners and bake for 18-22 minutes.",
+    "category": "Cupcakes",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Strawberry Cupcakes",
+    "description": "Moist cupcakes made with fresh strawberries, perfect for summer.",
+    "ingredients": ["2 cups all-purpose flour", "1 cup sugar", "1/2 cup butter, softened", "1 cup chopped fresh strawberries", "1/2 cup milk", "2 eggs", "2 tsp baking powder", "1/4 tsp salt", "1 tsp vanilla extract"],
+    "instructions": "1. Preheat oven to 350°F. Cream butter and sugar...\n2. Add eggs and vanilla...\n3. Mix in flour, baking powder, and salt...\n4. Stir in strawberries and milk...\n5. Spoon into cupcake liners and bake for 22-25 minutes.",
+    "category": "Cupcakes",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Classic Chocolate Cake",
+    "description": "A rich and moist chocolate cake with a smooth chocolate frosting.",
+    "ingredients": ["2 cups all-purpose flour", "1 3/4 cups sugar", "3/4 cup cocoa powder", "1 1/2 tsp baking powder", "1 1/2 tsp baking soda", "1 tsp salt", "2 eggs", "1 cup milk", "1/2 cup vegetable oil", "2 tsp vanilla extract", "1 cup boiling water"],
+    "instructions": "1. Preheat oven to 350°F. Mix dry ingredients...\n2. Add eggs, milk, oil, and vanilla. Stir in boiling water...\n3. Pour into pans and bake for 30-35 minutes...\n4. Cool and frost with chocolate frosting.",
+    "category": "Cakes",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Vanilla Sponge Cake",
+    "description": "A light and airy vanilla sponge cake, perfect for layering with fruit and cream.",
+    "ingredients": ["1 1/2 cups all-purpose flour", "1 cup sugar", "1/2 cup butter, softened", "4 eggs", "1/2 cup milk", "2 tsp baking powder", "1 tsp vanilla extract"],
+    "instructions": "1. Preheat oven to 350°F. Cream butter and sugar...\n2. Add eggs one at a time. Stir in vanilla...\n3. Mix in flour and baking powder alternately with milk...\n4. Pour into pans and bake for 25-30 minutes.",
+    "category": "Cakes",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Carrot Cake",
+    "description": "A moist and spiced carrot cake with a creamy cream cheese frosting.",
+    "ingredients": ["2 cups all-purpose flour", "2 cups sugar", "1 tsp baking powder", "1/2 tsp salt", "1 tsp baking soda", "1 tsp cinnamon", "4 eggs", "1 1/4 cups vegetable oil", "2 cups grated carrots", "1 cup chopped walnuts"],
+    "instructions": "1. Preheat oven to 350°F. Mix flour, sugar, baking powder, baking soda, salt, and cinnamon...\n2. Add eggs and oil. Stir in carrots and walnuts...\n3. Pour into pans and bake for 40-45 minutes...\n4. Cool and frost with cream cheese frosting.",
+    "category": "Cakes",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Lemon Drizzle Cake",
+    "description": "A tangy and moist lemon cake with a sweet lemon glaze.",
+    "ingredients": ["1 1/2 cups all-purpose flour", "1 cup sugar", "1/2 cup butter, softened", "2 eggs", "1/2 cup milk", "2 tsp baking powder", "1/4 tsp salt", "2 tbsp lemon zest", "1/4 cup lemon juice", "1/2 cup sugar (for drizzle)"],
+    "instructions": "1. Preheat oven to 350°F. Cream butter and sugar...\n2. Add eggs. Mix in lemon zest and juice...\n3. Combine flour, baking powder, and salt. Add to wet mixture...\n4. Bake for 30-35 minutes. Mix lemon juice and sugar for drizzle and pour over warm cake.",
+    "category": "Cakes",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Red Velvet Cake",
+    "description": "A classic red velvet cake with a rich cream cheese frosting.",
+    "ingredients": ["2 1/2 cups all-purpose flour", "1 1/2 cups sugar", "1 tsp baking soda", "1 tsp cocoa powder", "1 tsp salt", "2 eggs", "1 1/2 cups vegetable oil", "1 cup buttermilk", "2 tbsp red food coloring", "1 tsp vinegar", "1 tsp vanilla extract"],
+    "instructions": "1. Preheat oven to 350°F. Mix flour, sugar, baking soda, cocoa, and salt...\n2. Add eggs, oil, buttermilk, food coloring, vinegar, and vanilla...\n3. Pour into pans and bake for 30-35 minutes...\n4. Cool and apply cream cheese frosting.",
+    "category": "Cakes",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Coconut Cake",
+    "description": "A fluffy and moist coconut cake with a creamy coconut frosting.",
+    "ingredients": ["2 cups all-purpose flour", "1 cup sugar", "1/2 cup butter, softened", "4 eggs", "1 cup coconut milk", "1/2 cup shredded coconut", "2 tsp baking powder", "1/4 tsp salt", "1 tsp vanilla extract"],
+    "instructions": "1. Preheat oven to 350°F. Cream butter and sugar...\n2. Add eggs one at a time. Mix in vanilla...\n3. Combine flour, baking powder, and salt. Add to wet mixture alternately with coconut milk...\n4. Stir in shredded coconut. Bake for 30-35 minutes. Frost with coconut frosting.",
+    "category": "Cakes",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Classic Sourdough Bread",
+    "description": "Artisanal sourdough bread with a tangy flavor and a crisp crust.",
+    "ingredients": ["3 cups all-purpose flour", "1 1/2 cups water", "3/4 cup sourdough starter", "1 tsp salt"],
+    "instructions": "1. Mix all ingredients to form a sticky dough...\n2. Let it rise for 12-14 hours...\n3. Shape the dough and let it rise for another 2 hours...\n4. Bake in a preheated oven at 450°F for 30-35 minutes.",
+    "category": "Bread",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Whole Wheat Bread",
+    "description": "Healthy and hearty whole wheat bread, perfect for sandwiches.",
+    "ingredients": ["2 cups whole wheat flour", "1 cup all-purpose flour", "1 1/4 cups warm water", "1/4 cup honey", "1/4 cup vegetable oil", "1 packet yeast", "1 tsp salt"],
+    "instructions": "1. Dissolve yeast in warm water with honey...\n2. Mix in flours and salt to form a dough...\n3. Knead until smooth. Let it rise for 1 hour...\n4. Shape the loaf and let it rise for another 30 minutes before baking at 375°F for 25-30 minutes.",
+    "category": "Bread",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "French Baguette",
+    "description": "Classic French baguette with a crispy crust and chewy interior.",
+    "ingredients": ["4 cups all-purpose flour", "1 1/2 cups water", "1 tsp salt", "1 tsp yeast"],
+    "instructions": "1. Combine all ingredients to form a dough...\n2. Knead for 5-10 minutes. Let it rise for 1 hour...\n3. Divide and shape into baguettes. Let them rise for 45 minutes...\n4. Bake at 475°F for 25 minutes with steam.",
+    "category": "Bread",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Multigrain Bread",
+    "description": "Nutritious bread packed with a variety of grains and seeds.",
+    "ingredients": ["2 cups multigrain flour", "1 cup all-purpose flour", "1 1/4 cups warm water", "1/4 cup mixed seeds (sunflower, pumpkin, flax)", "1 packet yeast", "2 tbsp honey", "1 tsp salt"],
+    "instructions": "1. Dissolve yeast in warm water with honey...\n2. Mix in flours, seeds, and salt...\n3. Knead until smooth. Let it rise for 1 hour...\n4. Shape the loaf and let it rise for 30 minutes. Bake at 375°F for 30-35 minutes.",
+    "category": "Bread",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Classic Chocolate Chip Cookies",
+    "description": "Crunchy on the outside, chewy on the inside, loaded with chocolate chips.",
+    "ingredients": ["2 1/4 cups all-purpose flour", "1/2 tsp baking soda", "1 cup unsalted butter, room temperature", "1/2 cup granulated sugar", "1 cup packed light-brown sugar", "1 tsp salt", "2 tsp pure vanilla extract", "2 large eggs", "2 cups semisweet and/or milk chocolate chips"],
+    "instructions": "1. Preheat oven to 350°F. Mix flour and baking soda...\n2. Cream butter and sugars until smooth. Add salt, vanilla, and eggs...\n3. Mix in flour mixture. Stir in chocolate chips...\n4. Drop spoonfuls onto baking sheets and bake for 8-10 minutes.",
+    "category": "Cookies",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Peanut Butter Cookies",
+    "description": "Soft and chewy peanut butter cookies, a classic favorite.",
+    "ingredients": ["2 cups all-purpose flour", "1/2 tsp baking soda", "1/4 tsp salt", "1/2 cup unsalted butter", "1 cup peanut butter", "1 cup granulated sugar", "1/2 cup light brown sugar", "2 large eggs", "1 tsp vanilla extract"],
+    "instructions": "1. Preheat oven to 350°F. Mix flour, baking soda, and salt...\n2. Cream butter, peanut butter, and sugars. Add eggs and vanilla...\n3. Gradually mix in flour mixture...\n4. Roll into balls, press with a fork, and bake for 10-12 minutes.",
+    "category": "Cookies",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Oatmeal Raisin Cookies",
+    "description": "Chewy cookies loaded with oats and raisins, a wholesome treat.",
+    "ingredients": ["1 1/2 cups all-purpose flour", "1 tsp baking soda", "1/2 tsp salt", "1 cup unsalted butter, softened", "1 cup light brown sugar", "1/2 cup granulated sugar", "2 large eggs", "1 tsp vanilla extract", "3 cups rolled oats", "1 cup raisins"],
+    "instructions": "1. Preheat oven to 350°F. Mix flour, baking soda, and salt...\n2. Cream butter and sugars. Add eggs and vanilla...\n3. Stir in oats and raisins. Gradually add flour mixture...\n4. Drop spoonfuls onto baking sheets and bake for 10-12 minutes.",
+    "category": "Cookies",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "White Chocolate Macadamia Nut Cookies",
+    "description": "Luxurious cookies with creamy white chocolate and crunchy macadamia nuts.",
+    "ingredients": ["2 1/4 cups all-purpose flour", "1/2 tsp baking soda", "1 cup unsalted butter, room temperature", "1/2 cup granulated sugar", "1 cup packed light-brown sugar", "1 tsp salt", "2 tsp vanilla extract", "2 large eggs", "1 cup white chocolate chips", "1 cup chopped macadamia nuts"],
+    "instructions": "1. Preheat oven to 350°F. Mix flour and baking soda...\n2. Cream butter and sugars. Add salt, vanilla, and eggs...\n3. Stir in flour mixture, white chocolate chips, and macadamia nuts...\n4. Drop onto baking sheets and bake for 10-12 minutes.",
+    "category": "Cookies",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Snickerdoodle Cookies",
+    "description": "Soft cookies coated with cinnamon sugar, with a delightful chewy texture.",
+    "ingredients": ["2 3/4 cups all-purpose flour", "2 tsp baking powder", "1/2 tsp coarse salt", "1 cup unsalted butter, softened", "1 1/2 cups plus 2 tbsp sugar", "2 large eggs", "2 tsp ground cinnamon"],
+    "instructions": "1. Preheat oven to 350°F. Mix flour, baking powder, and salt...\n2. Cream butter and 1 1/2 cups sugar. Add eggs...\n3. Gradually mix in flour mixture...\n4. Shape into balls, roll in cinnamon sugar, and bake for 8-10 minutes.",
+    "category": "Cookies",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Butter Croissants",
+    "description": "Flaky and buttery croissants, perfect for a luxurious breakfast.",
+    "ingredients": ["4 cups all-purpose flour", "1/4 cup granulated sugar", "2 tsp salt", "1 tbsp yeast", "1 1/4 cups warm milk", "1 egg", "1 cup unsalted butter, cold and sliced"],
+    "instructions": "1. Combine flour, sugar, salt, and yeast. Add milk and egg...\n2. Knead until smooth. Refrigerate for 1 hour...\n3. Roll dough and place butter slices on top. Fold and roll several times...\n4. Cut into triangles and roll into croissants. Let rise for 1 hour...\n5. Bake at 400°F for 15-20 minutes.",
+    "category": "Pastries",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Apple Danish",
+    "description": "Sweet and fruity danishes with a rich apple filling and icing drizzle.",
+    "ingredients": ["2 cups all-purpose flour", "1/4 cup granulated sugar", "1 tsp salt", "1 tbsp yeast", "1/2 cup milk", "1/4 cup water", "1 egg", "1/2 cup unsalted butter, softened", "1 cup apple filling"],
+    "instructions": "1. Mix flour, sugar, salt, and yeast. Add milk, water, and egg...\n2. Knead to form a smooth dough. Let it rise for 1 hour...\n3. Roll dough, spread butter, fold, and chill for 30 minutes. Repeat twice...\n4. Cut into squares, add apple filling, and shape. Let rise for 30 minutes...\n5. Bake at 375°F for 20-25 minutes. Drizzle with icing.",
+    "category": "Pastries",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Chocolate Eclairs",
+    "description": "Elegant eclairs filled with creamy custard and topped with chocolate glaze.",
+    "ingredients": ["1 cup water", "1/2 cup unsalted butter", "1 cup all-purpose flour", "1/4 tsp salt", "4 large eggs", "1 cup pastry cream", "1/2 cup chocolate glaze"],
+    "instructions": "1. Boil water and butter. Add flour and salt. Stir vigorously...\n2. Cook until the dough forms a ball. Cool slightly and add eggs one at a time...\n3. Pipe dough into long shapes. Bake at 425°F for 15 minutes, then 350°F for 20 minutes...\n4. Fill with pastry cream and top with chocolate glaze.",
+    "category": "Pastries",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Classic Glazed Doughnuts",
+    "description": "Soft and fluffy doughnuts with a sweet vanilla glaze.",
+    "ingredients": ["2 cups all-purpose flour", "1/4 cup granulated sugar", "1 tsp salt", "1 tbsp yeast", "2/3 cup warm milk", "2 tbsp unsalted butter, melted", "1 large egg", "Vegetable oil for frying", "1 cup powdered sugar", "2 tbsp milk (for glaze)", "1 tsp vanilla extract (for glaze)"],
+    "instructions": "1. Combine flour, sugar, salt, and yeast. Add warm milk, butter, and egg. Knead...\n2. Let dough rise for 1 hour...\n3. Roll out, cut into doughnut shapes, and let rise for 30 minutes...\n4. Fry in hot oil until golden. Mix powdered sugar, milk, and vanilla for glaze. Dip doughnuts into glaze.",
+    "category": "Doughnuts",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Chocolate Doughnuts",
+    "description": "Rich chocolate doughnuts with a chocolate glaze and sprinkles.",
+    "ingredients": ["1 3/4 cups all-purpose flour", "1/2 cup cocoa powder", "1/3 cup granulated sugar", "1 tbsp yeast", "1/2 tsp salt", "2/3 cup warm milk", "2 tbsp unsalted butter, melted", "1 large egg", "Vegetable oil for frying", "1 cup powdered sugar", "3 tbsp cocoa powder (for glaze)", "2 tbsp milk (for glaze)"],
+    "instructions": "1. Mix flour, cocoa powder, sugar, yeast, and salt. Add milk, butter, and egg. Knead...\n2. Let dough rise for 1 hour...\n3. Cut into doughnut shapes, let rise for 30 minutes...\n4. Fry until golden. For glaze, combine powdered sugar, cocoa powder, and milk. Dip doughnuts and add sprinkles.",
+    "category": "Doughnuts",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Cinnamon Sugar Doughnuts",
+    "description": "Warm and sugary doughnuts coated in cinnamon sugar, a perfect treat.",
+    "ingredients": ["2 cups all-purpose flour", "1/4 cup granulated sugar", "1 tsp baking powder", "1/2 tsp salt", "1/2 tsp cinnamon", "1/4 tsp nutmeg", "2/3 cup milk", "1/4 cup unsalted butter, melted", "1 large egg", "Vegetable oil for frying", "1/2 cup granulated sugar (for coating)", "1 tbsp cinnamon (for coating)"],
+    "instructions": "1. Combine flour, sugar, baking powder, salt, cinnamon, and nutmeg. Mix in milk, butter, and egg...\n2. Roll out, cut into doughnut shapes...\n3. Fry in hot oil until golden. Mix sugar and cinnamon for coating. Coat warm doughnuts.",
+    "category": "Doughnuts",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Vegan Chocolate Chip Cookies",
+    "description": "Crispy on the edges and chewy in the middle, these vegan cookies are a delight.",
+    "ingredients": ["2 cups all-purpose flour", "1 tsp baking soda", "1/2 tsp salt", "1/2 cup coconut oil, melted", "1 cup brown sugar", "1/4 cup almond milk", "1 tsp vanilla extract", "1 cup vegan chocolate chips"],
+    "instructions": "1. Preheat oven to 350°F. Mix flour, baking soda, and salt...\n2. In another bowl, combine coconut oil, brown sugar, almond milk, and vanilla extract...\n3. Mix wet and dry ingredients. Fold in chocolate chips...\n4. Drop spoonfuls onto baking sheets and bake for 10-12 minutes.",
+    "category": "Vegan",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Vegan Banana Bread",
+    "description": "Moist and flavorful banana bread, completely egg and dairy-free.",
+    "ingredients": ["2 cups all-purpose flour", "1 tsp baking soda", "1/4 tsp salt", "1/2 cup vegan butter, melted", "3/4 cup sugar", "4 ripe bananas, mashed", "1/4 cup almond milk", "1 tsp apple cider vinegar", "1 tsp vanilla extract"],
+    "instructions": "1. Preheat oven to 350°F. Mix flour, baking soda, and salt...\n2. Combine almond milk and apple cider vinegar. Set aside...\n3. Cream vegan butter and sugar. Add bananas, almond milk mixture, and vanilla...\n4. Add dry ingredients. Pour into a loaf pan and bake for 60 minutes.",
+    "category": "Vegan",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Vegan Blueberry Muffins",
+    "description": "Deliciously light and fluffy muffins bursting with fresh blueberries.",
+    "ingredients": ["2 cups all-purpose flour", "2 tsp baking powder", "1/2 tsp salt", "1/2 cup unsweetened applesauce", "1 cup sugar", "1/2 cup almond milk", "1/2 cup vegetable oil", "1 tsp vanilla extract", "1 cup fresh blueberries"],
+    "instructions": "1. Preheat oven to 375°F. Mix flour, baking powder, and salt...\n2. In another bowl, combine applesauce, sugar, almond milk, oil, and vanilla...\n3. Mix wet and dry ingredients gently. Fold in blueberries...\n4. Fill muffin cups and bake for 25 minutes.",
+    "category": "Vegan",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Vegan Lemon Cake",
+    "description": "A zesty and moist lemon cake with a sweet vegan glaze.",
+    "ingredients": ["2 1/2 cups all-purpose flour", "1 1/2 cups sugar", "1 tsp baking soda", "1/2 tsp salt", "1 cup water", "1/2 cup vegetable oil", "2 tsp lemon zest", "1/4 cup lemon juice", "1 tsp apple cider vinegar", "1 tsp vanilla extract", "1 cup powdered sugar (for glaze)", "2 tbsp lemon juice (for glaze)"],
+    "instructions": "1. Preheat oven to 350°F. Mix flour, sugar, baking soda, and salt...\n2. In another bowl, mix water, oil, lemon zest, lemon juice, vinegar, and vanilla...\n3. Combine wet and dry ingredients...\n4. Pour into a cake pan and bake for 35 minutes. For glaze, mix powdered sugar and lemon juice. Drizzle over cooled cake.",
+    "category": "Vegan",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Classic French Meringue",
+    "description": "Light and airy French meringue, perfect for pavlova and macarons.",
+    "ingredients": ["4 large egg whites", "1 cup granulated sugar", "1/4 tsp cream of tartar", "1 tsp vanilla extract"],
+    "instructions": "1. Preheat oven to 225°F. Line a baking sheet with parchment paper...\n2. Beat egg whites until foamy. Add cream of tartar...\n3. Gradually add sugar and beat until stiff peaks form. Add vanilla...\n4. Pipe or spoon onto the baking sheet. Bake for 1.5 to 2 hours until dry.",
+    "category": "Meringue",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Lemon Meringue Pie",
+    "description": "A tangy lemon filling topped with a fluffy meringue crown.",
+    "ingredients": ["1 pre-baked pie crust", "3 large egg yolks", "1 1/2 cups granulated sugar", "3 tbsp cornstarch", "1 1/2 cups water", "1/2 cup fresh lemon juice", "2 tsp lemon zest", "4 large egg whites", "1/4 cup granulated sugar"],
+    "instructions": "1. In a saucepan, mix egg yolks, 1 1/2 cups sugar, cornstarch, water, lemon juice, and zest. Cook until thickened...\n2. Pour into pie crust. Beat egg whites until foamy. Gradually add 1/4 cup sugar and beat until stiff...\n3. Spread meringue over the pie, sealing the edges...\n4. Bake at 350°F for 10-15 minutes until meringue is golden brown.",
+    "category": "Meringue",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Chocolate Meringue Cookies",
+    "description": "Crunchy chocolate meringue cookies with a gooey chocolate center.",
+    "ingredients": ["3 large egg whites", "1/2 cup granulated sugar", "1/4 cup unsweetened cocoa powder", "1/2 tsp vanilla extract", "1/4 cup chocolate chips"],
+    "instructions": "1. Preheat oven to 300°F. Line a baking sheet with parchment paper...\n2. Beat egg whites until soft peaks form. Gradually add sugar and beat until stiff...\n3. Sift cocoa powder over the meringue. Add vanilla and fold...\n4. Drop spoonfuls onto the baking sheet. Press a chocolate chip into the center of each...\n5. Bake for 30-35 minutes.",
+    "category": "Meringue",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Raspberry Pavlova",
+    "description": "A delicate pavlova base topped with whipped cream and fresh raspberries.",
+    "ingredients": ["4 large egg whites", "1 cup granulated sugar", "1 tsp white vinegar", "1 tsp vanilla extract", "1 cup heavy cream", "2 cups fresh raspberries"],
+    "instructions": "1. Preheat oven to 300°F. Line a baking sheet with parchment paper...\n2. Beat egg whites until soft peaks form. Gradually add sugar and beat until stiff...\n3. Add vinegar and vanilla. Spoon onto the baking sheet, forming a circle...\n4. Bake for 1 hour. Turn off the oven and let it cool inside...\n5. Whip cream and spread over the pavlova. Top with fresh raspberries.",
+    "category": "Meringue",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Classic Buttercream Frosting",
+    "description": "A creamy and sweet buttercream frosting, perfect for cakes and cupcakes.",
+    "ingredients": ["1 cup unsalted butter, softened", "4 cups powdered sugar", "1/4 cup milk", "1 tsp vanilla extract", "Food coloring (optional)"],
+    "instructions": "1. In a mixing bowl, beat softened butter until creamy...\n2. Gradually add powdered sugar, milk, and vanilla extract. Beat until smooth...\n3. If desired, add food coloring for different colors...\n4. Use immediately to frost cakes and cupcakes.",
+    "category": "Frosting & Icing",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Chocolate Ganache",
+    "description": "A rich and glossy chocolate ganache, perfect for drizzling over cakes and pastries.",
+    "ingredients": ["1 cup heavy cream", "8 ounces semisweet chocolate, chopped", "2 tbsp unsalted butter", "1 tsp vanilla extract"],
+    "instructions": "1. Heat heavy cream in a saucepan until it begins to simmer...\n2. Pour hot cream over chopped chocolate and let it sit for a minute...\n3. Stir until smooth. Add butter and vanilla extract, stir until combined...\n4. Let it cool slightly before drizzling over desserts.",
+    "category": "Frosting & Icing",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Royal Icing",
+    "description": "A versatile royal icing that dries hard, perfect for decorating cookies and gingerbread houses.",
+    "ingredients": ["3 large egg whites", "4 cups powdered sugar", "1/2 tsp lemon juice", "Food coloring (optional)"],
+    "instructions": "1. In a mixing bowl, beat egg whites until frothy...\n2. Gradually add powdered sugar and lemon juice. Beat until smooth and glossy...\n3. If desired, add food coloring for different colors...\n4. Use for cookie and gingerbread house decoration. Allow time to dry.",
+    "category": "Frosting & Icing",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Cream Cheese Frosting",
+    "description": "A tangy and creamy cream cheese frosting, perfect for carrot cake and red velvet cake.",
+    "ingredients": ["8 ounces cream cheese, softened", "1/2 cup unsalted butter, softened", "4 cups powdered sugar", "1 tsp vanilla extract"],
+    "instructions": "1. In a mixing bowl, beat softened cream cheese and butter until creamy...\n2. Gradually add powdered sugar and vanilla extract. Beat until smooth...\n3. Use to frost carrot cake, red velvet cake, or other desserts...",
+    "category": "Frosting & Icing",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Lemon Glaze",
+    "description": "A zesty and tangy lemon glaze, perfect for drizzling over lemon cakes and scones.",
+    "ingredients": ["1 cup powdered sugar", "2 tbsp fresh lemon juice", "1 tsp lemon zest"],
+    "instructions": "1. In a bowl, mix powdered sugar, fresh lemon juice, and lemon zest until smooth...\n2. Drizzle over cooled lemon cakes, scones, or other desserts...",
+    "category": "Frosting & Icing",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Spinach and Feta Stuffed Mushrooms",
+    "description": "Savory mushrooms stuffed with spinach, feta cheese, and herbs.",
+    "ingredients": ["12 large mushrooms", "1 cup chopped spinach", "1/2 cup crumbled feta cheese", "2 cloves garlic, minced", "2 tbsp olive oil", "1/4 cup breadcrumbs", "Salt and pepper to taste"],
+    "instructions": "1. Preheat oven to 375°F. Remove mushroom stems and chop them...\n2. In a skillet, heat olive oil. Sauté mushroom stems, garlic, and spinach...\n3. Combine sautéed mixture with feta cheese, breadcrumbs, salt, and pepper...\n4. Stuff mushroom caps and place on a baking sheet. Bake for 15-20 minutes.",
+    "category": "Savory",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Quiche Lorraine",
+    "description": "A classic quiche with bacon, cheese, and a creamy egg filling.",
+    "ingredients": ["1 pie crust", "6 slices bacon, cooked and crumbled", "1 1/2 cups shredded Swiss cheese", "4 large eggs", "1 cup heavy cream", "Salt and pepper to taste", "Pinch of nutmeg"],
+    "instructions": "1. Preheat oven to 375°F. Place pie crust in a pie dish. Layer bacon and cheese inside...\n2. In a bowl, whisk eggs, heavy cream, salt, pepper, and nutmeg...\n3. Pour egg mixture into the pie crust...\n4. Bake for 35-40 minutes until the quiche is set and golden brown.",
+    "category": "Savory",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Cheesy Garlic Breadsticks",
+    "description": "Soft and cheesy garlic breadsticks, a perfect side for pasta dishes.",
+    "ingredients": ["1 lb pizza dough", "2 cups shredded mozzarella cheese", "4 cloves garlic, minced", "2 tbsp butter, melted", "1/4 cup grated Parmesan cheese", "Fresh parsley for garnish"],
+    "instructions": "1. Preheat oven to 375°F. Roll out pizza dough into a rectangle...\n2. Sprinkle mozzarella cheese and minced garlic over the dough...\n3. Roll up the dough and cut into breadsticks...\n4. Place on a baking sheet, brush with melted butter, and sprinkle with Parmesan...\n5. Bake for 15-20 minutes. Garnish with fresh parsley.",
+    "category": "Savory",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Cheddar and Chive Scones",
+    "description": "Savory scones loaded with cheddar cheese and fresh chives.",
+    "ingredients": ["2 cups all-purpose flour", "2 tsp baking powder", "1/2 tsp baking soda", "1/2 tsp salt", "1/2 cup unsalted butter, cold and cubed", "1 cup shredded cheddar cheese", "2 tbsp fresh chives, chopped", "3/4 cup buttermilk"],
+    "instructions": "1. Preheat oven to 425°F. In a bowl, mix flour, baking powder, baking soda, and salt...\n2. Add cold butter and use a pastry cutter to blend until it resembles coarse crumbs...\n3. Stir in cheddar cheese and chives. Add buttermilk and mix until just combined...\n4. Pat dough into a circle and cut into wedges. Place on a baking sheet...\n5. Bake for 12-15 minutes until golden brown.",
+    "category": "Savory",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Savory Herb Biscuits",
+    "description": "Flaky and buttery biscuits with a blend of savory herbs.",
+    "ingredients": ["2 cups all-purpose flour", "2 tsp baking powder", "1/2 tsp baking soda", "1/2 tsp salt", "1/2 cup unsalted butter, cold and cubed", "1 tbsp dried mixed herbs (thyme, rosemary, oregano)", "3/4 cup buttermilk"],
+    "instructions": "1. Preheat oven to 425°F. In a bowl, mix flour, baking powder, baking soda, and salt...\n2. Add cold butter and use a pastry cutter to blend until it resembles coarse crumbs...\n3. Stir in dried herbs. Add buttermilk and mix until just combined...\n4. Drop spoonfuls of dough onto a baking sheet...\n5. Bake for 12-15 minutes until golden brown.",
+    "category": "Savory",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Tomato and Basil Focaccia",
+    "description": "A savory Italian bread topped with fresh tomatoes and basil.",
+    "ingredients": ["2 cups all-purpose flour", "1 packet active dry yeast", "1 tsp sugar", "1 tsp salt", "2/3 cup warm water", "2 tbsp olive oil", "2 tomatoes, sliced", "Fresh basil leaves for topping"],
+    "instructions": "1. In a bowl, combine flour, yeast, sugar, and salt. Add warm water and olive oil. Knead into a dough...\n2. Cover and let it rise until doubled in size...\n3. Preheat oven to 375°F. Roll out dough and place on a baking sheet...\n4. Top with tomato slices and fresh basil leaves...\n5. Bake for 20-25 minutes until golden brown.",
+    "category": "Savory",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Classic Chocolate Brownies",
+    "description": "Rich and fudgy chocolate brownies, a timeless favorite.",
+    "ingredients": ["1 cup unsalted butter", "2 cups granulated sugar", "4 large eggs", "1 tsp vanilla extract", "1 cup all-purpose flour", "1/2 cup cocoa powder", "1/2 tsp salt", "1/2 cup chocolate chips"],
+    "instructions": "1. Preheat oven to 350°F. Grease and flour a baking pan...\n2. In a saucepan, melt butter. Remove from heat and stir in sugar...\n3. Beat in eggs and vanilla extract. Add flour, cocoa powder, and salt...\n4. Stir in chocolate chips. Pour batter into the prepared pan...\n5. Bake for 25-30 minutes. Let cool before cutting into squares.",
+    "category": "Desserts",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Homemade Apple Pie",
+    "description": "A classic apple pie with a flaky crust and sweet apple filling.",
+    "ingredients": ["2 pie crusts", "6 cups thinly sliced apples", "3/4 cup granulated sugar", "1 tsp ground cinnamon", "1/4 tsp nutmeg", "2 tbsp butter", "1 egg (for egg wash)"],
+    "instructions": "1. Preheat oven to 425°F. Place one pie crust in a pie dish...\n2. In a bowl, combine sliced apples, sugar, cinnamon, and nutmeg...\n3. Pour apple mixture into the pie crust. Dot with butter...\n4. Place the second pie crust over the filling. Trim and crimp edges...\n5. Brush with beaten egg. Cut slits in the top crust...\n6. Bake for 45-50 minutes until golden brown and bubbling.",
+    "category": "Desserts",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Vanilla Panna Cotta with Berry Compote",
+    "description": "Creamy vanilla panna cotta topped with a vibrant berry compote.",
+    "ingredients": ["2 cups heavy cream", "1/2 cup granulated sugar", "2 tsp vanilla extract", "2 tsp gelatin powder", "2 tbsp cold water", "2 cups mixed berries", "1/4 cup powdered sugar", "1 tsp lemon zest"],
+    "instructions": "1. In a saucepan, heat heavy cream and sugar until sugar dissolves. Stir in vanilla extract...\n2. In a separate bowl, sprinkle gelatin over cold water. Let it bloom, then melt over low heat...\n3. Combine gelatin mixture with cream mixture. Pour into serving glasses...\n4. Chill in the fridge for 4 hours or until set...\n5. In a saucepan, cook mixed berries, powdered sugar, and lemon zest until berries soften...\n6. Spoon berry compote over panna cotta before serving.",
+    "category": "Desserts",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Banana Split Sundae",
+    "description": "A classic banana split sundae with scoops of ice cream and toppings.",
+    "ingredients": ["1 ripe banana, split in half", "3 scoops of vanilla ice cream", "Chocolate sauce", "Strawberry sauce", "Whipped cream", "Chopped nuts", "Maraschino cherries"],
+    "instructions": "1. Place banana halves in a dish. Add scoops of vanilla ice cream...\n2. Drizzle with chocolate and strawberry sauce...\n3. Top with whipped cream, chopped nuts, and maraschino cherries...\n4. Enjoy your classic banana split sundae!",
+    "category": "Desserts",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Raspberry Cheesecake",
+    "description": "Creamy cheesecake with a raspberry swirl and a graham cracker crust.",
+    "ingredients": ["1 1/2 cups graham cracker crumbs", "1/4 cup melted butter", "3 packages (8 oz each) cream cheese", "1 cup granulated sugar", "3 large eggs", "1 tsp vanilla extract", "1 cup fresh raspberries", "1/4 cup powdered sugar"],
+    "instructions": "1. Preheat oven to 325°F. Mix graham cracker crumbs and melted butter. Press into a springform pan...\n2. In a bowl, beat cream cheese and sugar until smooth. Add eggs and vanilla...\n3. Pour cream cheese mixture over crust...\n4. In a blender, puree raspberries and powdered sugar. Swirl into cream cheese mixture...\n5. Bake for 45-50 minutes. Let cool before refrigerating.",
+    "category": "Desserts",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Mango Sorbet",
+    "description": "Refreshing mango sorbet with a hint of lime, a perfect palate cleanser.",
+    "ingredients": ["4 ripe mangoes, peeled and diced", "1/2 cup granulated sugar", "1/4 cup water", "2 tbsp fresh lime juice", "Zest of 1 lime"],
+    "instructions": "1. In a blender, puree mangoes, sugar, water, lime juice, and lime zest until smooth...\n2. Pour mixture into an ice cream maker and churn according to the manufacturer's instructions...\n3. Transfer sorbet to a container and freeze until firm...\n4. Scoop and enjoy the refreshing mango sorbet!",
+    "category": "Desserts",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Chocolate Covered Strawberries",
+    "description": "Juicy strawberries dipped in smooth chocolate, a delightful treat.",
+    "ingredients": ["1 lb fresh strawberries, washed and dried", "8 oz semisweet chocolate, melted", "White chocolate for drizzling (optional)"],
+    "instructions": "1. Line a baking sheet with parchment paper. Set aside...\n2. Dip each strawberry into melted semisweet chocolate. Allow excess to drip off...\n3. Place dipped strawberries on the prepared baking sheet...\n4. If desired, drizzle with melted white chocolate...\n5. Refrigerate until chocolate is set. Enjoy your chocolate-covered strawberries!",
+    "category": "Desserts",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Pumpkin Spice Muffins",
+    "description": "Delicious muffins with the warm flavors of pumpkin spice.",
+    "ingredients": ["1 3/4 cups all-purpose flour", "1 tsp baking powder", "1/2 tsp baking soda", "1/2 tsp salt", "1 tsp cinnamon", "1/2 tsp nutmeg", "1/2 tsp cloves", "1/2 cup unsalted butter, softened", "1 cup granulated sugar", "2 large eggs", "1 cup canned pumpkin", "1/2 cup milk", "1 tsp vanilla extract"],
+    "instructions": "1. Preheat oven to 350°F. Line muffin tin with paper liners...\n2. In a bowl, whisk together flour, baking powder, baking soda, salt, and spices...\n3. In another bowl, beat butter and sugar until creamy. Add eggs one at a time...\n4. Stir in pumpkin, milk, and vanilla. Gradually add dry ingredients...\n5. Divide batter among muffin cups. Bake for 18-20 minutes.",
+    "category": "Cupcakes, Seasonal",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Cranberry Orange Bread",
+    "description": "A delightful bread with the tangy sweetness of cranberries and oranges.",
+    "ingredients": ["2 cups all-purpose flour", "1 cup granulated sugar", "1 1/2 tsp baking powder", "1/2 tsp baking soda", "1/2 tsp salt", "1 cup fresh cranberries", "Zest of 1 orange", "1/2 cup freshly squeezed orange juice", "2 large eggs", "1/4 cup unsalted butter, melted", "1/4 cup vegetable oil", "1 tsp vanilla extract"],
+    "instructions": "1. Preheat oven to 350°F. Grease and flour a loaf pan...\n2. In a bowl, combine flour, sugar, baking powder, baking soda, and salt...\n3. Add cranberries and orange zest. In another bowl, whisk together orange juice, eggs, melted butter, vegetable oil, and vanilla...\n4. Gradually add wet mixture to dry ingredients. Pour into the prepared pan...\n5. Bake for 50-60 minutes or until a toothpick comes out clean.",
+    "category": "Bread, Seasonal",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Gingerbread Cookies",
+    "description": "Traditional gingerbread cookies with spicy-sweet flavor.",
+    "ingredients": ["3 cups all-purpose flour", "1 1/2 tsp ground ginger", "1 1/2 tsp ground cinnamon", "1/4 tsp ground cloves", "1/4 tsp salt", "3/4 cup unsalted butter, softened", "3/4 cup brown sugar", "1 large egg", "1/2 cup molasses", "1 tsp vanilla extract", "1/4 cup granulated sugar (for rolling)"],
+    "instructions": "1. In a bowl, whisk together flour, ginger, cinnamon, cloves, and salt...\n2. In another bowl, beat sugar, eggs, molasses, and vanilla until creamy...\n3. Gradually add dry ingredients. Divide dough in half and wrap in plastic wrap. Chill for 2 hours...\n4. Preheat oven to 350°F. Roll out dough and cut into shapes. Roll in granulated sugar...\n5. Bake for 8-10 minutes. Let cool before decorating.",
+    "category": "Cookies, Seasonal",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Apple Cider Donuts",
+    "description": "Fluffy donuts with the essence of apple cider and fall spices.",
+    "ingredients": ["2 cups all-purpose flour", "1 1/2 tsp baking powder", "1/2 tsp baking soda", "1/2 tsp salt", "1 tsp ground cinnamon", "1/4 tsp ground nutmeg", "1/4 tsp ground cloves", "2/3 cup granulated sugar", "2 large eggs", "1/2 cup apple cider", "1/4 cup buttermilk", "2 tbsp unsalted butter, melted", "1 tsp vanilla extract"],
+    "instructions": "1. Preheat oven to 350°F. Grease a donut pan. In a bowl, whisk together flour, baking powder, baking soda, salt, and spices...\n2. In another bowl, beat sugar, eggs, apple cider, buttermilk, melted butter, and vanilla until well combined...\n3. Gradually add dry ingredients. Transfer batter to a piping bag...\n4. Pipe into donut cavities. Bake for 12-15 minutes...\n5. Let cool and enjoy your apple cider donuts!",
+    "category": "Doughnuts, Seasonal",
+    "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "name": "Peppermint Hot Chocolate",
+    "description": "Warm and comforting hot chocolate with a hint of peppermint.",
+    "ingredients": ["4 cups milk", "1/2 cup semisweet chocolate chips", "2 tbsp cocoa powder", "1/4 cup granulated sugar", "1/4 tsp peppermint extract", "Whipped cream", "Crushed candy canes (for garnish)"],
+    "instructions": "1. In a saucepan, heat milk, chocolate chips, cocoa powder, and sugar over medium heat...\n2. Whisk until chocolate is melted and mixture is smooth. Stir in peppermint extract...\n3. Pour into mugs and top with whipped cream and crushed candy canes...\n4. Enjoy your peppermint hot chocolate!",
+    "category": "Seasonal, Drinks, Desserts",
+    "imagePath": "assets/images/comingsoon.jpg"
+  }
+]
+
