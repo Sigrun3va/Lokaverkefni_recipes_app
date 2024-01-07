@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/database/recipe_database.dart';
-import 'package:recipes_app/database/storage.dart';
 
 class AddRecipeScreen extends StatefulWidget {
   final List<String> categories;
@@ -33,6 +32,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   void _submitRecipe() async {
     if (_formKey.currentState!.validate()) {
+
       RecipeModel newRecipe = RecipeModel(
         name: nameController.text,
         description: descriptionController.text,
@@ -42,12 +42,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         imagePath: 'assets/images/comingsoon.jpg',
       );
 
-        List<RecipeModel> recipes = await readRecipes();
-        recipes.add(newRecipe);
-        await writeRecipes(recipes);
+      await writeRecipe(newRecipe);
 
-        Navigator.pop(context);
-
+      Navigator.pop(context);
     }
   }
 
@@ -177,8 +174,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         _submitRecipe();
       },
       style: ElevatedButton.styleFrom(
-        primary: const Color(0xFF181818),
-        onPrimary: Colors.white,
+        backgroundColor: const Color(0xFF181818),
+        foregroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),

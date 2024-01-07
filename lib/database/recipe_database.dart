@@ -30,21 +30,16 @@ class RecipeModel {
     );
   }
 
-    Map<String, dynamic> toJson() {
-      return {
-        'name': name,
-        'description': description,
-        'ingredients': ingredients,
-        'instructions': instructions,
-        'category': category,
-        'imagePath': imagePath,
-      };
-    }
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'description': description,
+      'ingredients': ingredients,
+      'instructions': instructions,
+      'category': category,
+      'imagePath': imagePath,
+    };
   }
-
-Future<File> get _localFile async {
-  final path = await _localPath;
-  return File('$path/recipes.json');
 }
 
 Future<String> get _localPath async {
@@ -52,8 +47,34 @@ Future<String> get _localPath async {
   return directory.path;
 }
 
-Future<File> writeRecipes(List<RecipeModel> recipes) async {
-  final file = await _localFile;
-  String json = jsonEncode(recipes.map((recipe) => recipe.toJson()).toList());
-  return file.writeAsString(json);
+Future<void> writeRecipe(RecipeModel recipe) async {
+  final path = await _localPath;
+  final file = File('$path/new/new_recipes.json');
+
+  final List<RecipeModel> existingRecipes = await readRecipes();
+  existingRecipes.add(recipe);
+
+  String json = jsonEncode(existingRecipes.map((recipe) => recipe.toJson()).toList());
+  await file.writeAsString(json);
+}
+
+Future<List<RecipeModel>> readRecipes() async {
+  try {
+    final path = await _localPath;
+    final file = File('$path/new/new_recipes.json');
+    final contents = await file.readAsString();
+    final List<dynamic> jsonData = jsonDecode(contents);
+    return jsonData.map((item) => RecipeModel.fromJson(item)).toList();
+  } catch (e) {
+    return [];
+  }
+}
+
+Future<String> uploadPhoto(File photo) async {
+  final path = await _localPath;
+  final imagePath = '$path/${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+  await photo.copy(imagePath);
+
+  return imagePath;
 }

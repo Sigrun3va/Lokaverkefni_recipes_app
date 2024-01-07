@@ -57,17 +57,17 @@ class SearchScreen extends StatelessWidget {
 
   Widget _buildSearchBar(BuildContext context) {
     return TextField(
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         labelText: 'Search for a recipe..',
         labelStyle: const TextStyle(color: Colors.grey),
-        suffixIcon: const Icon(Icons.search, color: Colors.white),
+        suffixIcon: const Icon(Icons.search, color: Colors.grey),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.lightBlue, width: 1),
+          borderSide: const BorderSide(color: Colors.grey, width: 1),
           borderRadius: BorderRadius.circular(10),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.lightBlue, width: 2),
+          borderSide: const BorderSide(color: Colors.grey, width: 2),
           borderRadius: BorderRadius.circular(10),
         ),
       ),

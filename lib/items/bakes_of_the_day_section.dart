@@ -17,7 +17,7 @@ class BakesOfTheDaySection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.only(left: 16.0, bottom: 15.0, top: 25.0),
+            padding: EdgeInsets.fromLTRB(16.0, 25.0, 16.0, 15.0),
             child: Text(
               'Bakes of the day!',
               style: TextStyle(
@@ -44,7 +44,7 @@ class BakesOfTheDaySection extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
                     width: 150,
                     color: Colors.black,
                     child: Column(
@@ -56,6 +56,7 @@ class BakesOfTheDaySection extends StatelessWidget {
                           height: 150,
                           fit: BoxFit.cover,
                         ),
+                        const SizedBox(height: 10),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(

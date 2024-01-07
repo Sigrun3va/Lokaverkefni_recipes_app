@@ -16,11 +16,19 @@ class CategoryItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 12.0),
       child: Column(
         children: <Widget>[
-          Image.asset(imagePath, width: 105, height: 105),
+          Semantics(
+            label: categoryName,
+            child: Image.asset(imagePath, width: 105, height: 105),
+          ),
           const SizedBox(height: 10),
           Text(
             categoryName,
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),

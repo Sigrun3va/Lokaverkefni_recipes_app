@@ -11,7 +11,6 @@ class RecipeItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigate to the recipe details screen when clicked
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -22,12 +21,19 @@ class RecipeItem extends StatelessWidget {
       child: Card(
         child: Column(
           children: [
-            Image.asset(
-              recipe.imagePath,
-              width: double.infinity,
-              height: 200,
-              fit: BoxFit.cover,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: double.infinity,
+                height: 200,
+                child: Image.asset(
+                  recipe.imagePath,
+                  fit: BoxFit.cover,
+                  semanticLabel: 'Recipe Image',
+                ),
+              ),
             ),
+            const SizedBox(height: 8.0),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(

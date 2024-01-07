@@ -15,7 +15,14 @@ class SearchResultsScreen extends StatelessWidget {
         backgroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,
-      body: ListView.builder(
+      body: searchResults.isEmpty
+      ? const Center(
+        child: Text(
+          'nothing to see here',
+          style: TextStyle(color: Colors.white),
+        ),
+      )
+      : ListView.builder(
         itemCount: searchResults.length,
         itemBuilder: (context, index) {
           final recipe = searchResults[index];

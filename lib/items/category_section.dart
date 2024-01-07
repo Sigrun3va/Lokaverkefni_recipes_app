@@ -21,18 +21,24 @@ class CategorySection extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: categories.length,
           itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {
-                onCategorySelected(categories[index]);
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => CategoryDetailScreen(categoryName: categories[index]),
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () {
+                  onCategorySelected(categories[index]);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => CategoryDetailScreen(categoryName: categories[index]),
+                    ),
+                  );
+                },
+                child: Semantics(
+                  label: categories[index],
+                  child: CategoryItem(
+                    imagePath: 'assets/images/${index + 1}.png',
+                    categoryName: categories[index],
                   ),
-                );
-              },
-              child: CategoryItem(
-                imagePath: 'assets/images/${index + 1}.png',
-                categoryName: categories[index],
+                ),
               ),
             );
           },
