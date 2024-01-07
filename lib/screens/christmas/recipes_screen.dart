@@ -70,6 +70,7 @@ class RecipeItem extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => RecipeDetailsScreen(
                 recipe: RecipeModel(
+                  id: 55488897,
               name: recipe.name,
               description: '',
               ingredients: [],

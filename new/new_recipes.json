@@ -1,9 +1,0 @@
-[  {
-  "name": "TEST",
-  "description": "TEST",
-  "ingredients": ["TEST", "TEST", "TEST"],
-  "instructions": "TEST",
-  "category": "Bread",
-  "imagePath": "assets/images/comingsoon.jpg"
-}
-]

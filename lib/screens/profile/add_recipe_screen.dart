@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/database/recipe_database.dart';
+import 'package:recipes_app/database/recipe_service.dart';
 
 class AddRecipeScreen extends StatefulWidget {
   final List<String> categories;
@@ -14,12 +15,12 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   List<String> ingredients = [];
   final ingredientController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
   final nameController = TextEditingController();
   final descriptionController = TextEditingController();
   final ingredientsController = TextEditingController();
   final instructionsController = TextEditingController();
   String? selectedCategory;
+
 
   @override
   void dispose() {
@@ -32,17 +33,18 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   void _submitRecipe() async {
     if (_formKey.currentState!.validate()) {
-
       RecipeModel newRecipe = RecipeModel(
-        name: nameController.text,
-        description: descriptionController.text,
-        ingredients: ingredients,
-        instructions: instructionsController.text,
-        category: selectedCategory ?? '',
-        imagePath: 'assets/images/comingsoon.jpg',
+        id: 55488897,
+        name: 'Recipe Name',
+        description: 'Recipe Description',
+        ingredients: ['Ingredient 1', 'Ingredient 2'],
+        instructions: 'Recipe Instructions',
+        category: 'Category',
+        imagePath: 'image_path.jpg',
       );
 
-      await writeRecipe(newRecipe);
+      final recipeService = RecipeService();
+      await recipeService.writeRecipe(newRecipe);
 
       Navigator.pop(context);
     }

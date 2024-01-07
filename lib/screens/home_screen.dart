@@ -8,7 +8,6 @@ import 'package:recipes_app/screens/christmas/recipes_screen.dart';
 import 'package:recipes_app/screens/profile/add_recipe_screen.dart';
 import 'package:recipes_app/screens/profile/profile_screen.dart';
 import 'dart:math';
-
 import 'package:recipes_app/screens/search/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {

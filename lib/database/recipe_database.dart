@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class RecipeModel {
+  final int id;
   final String name;
   final String description;
   final List<String> ingredients;
@@ -11,6 +14,7 @@ class RecipeModel {
   final String imagePath;
 
   RecipeModel({
+    required this.id,
     required this.name,
     required this.description,
     required this.ingredients,
@@ -19,22 +23,24 @@ class RecipeModel {
     required this.imagePath,
   });
 
-  factory RecipeModel.fromJson(Map<String, dynamic> json) {
+  factory RecipeModel.fromJson(Map<String, dynamic> map) {
     return RecipeModel(
-      name: json['name'],
-      description: json['description'],
-      ingredients: List<String>.from(json['ingredients']),
-      instructions: json['instructions'],
-      category: json['category'],
-      imagePath: json['imagePath'],
+      id: map['id'],
+      name: map['name'],
+      description: map['description'],
+      ingredients: List<String>.from(jsonDecode(map['ingredients'])),
+      instructions: map['instructions'],
+      category: map['category'],
+      imagePath: map['imagePath'],
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'name': name,
       'description': description,
-      'ingredients': ingredients,
+      'ingredients': jsonEncode(ingredients),
       'instructions': instructions,
       'category': category,
       'imagePath': imagePath,
@@ -42,39 +48,46 @@ class RecipeModel {
   }
 }
 
-Future<String> get _localPath async {
-  final directory = await getApplicationDocumentsDirectory();
-  return directory.path;
-}
+class RecipeDatabase {
+  late Database _database;
 
-Future<void> writeRecipe(RecipeModel recipe) async {
-  final path = await _localPath;
-  final file = File('$path/new/new_recipes.json');
+  RecipeDatabase();
 
-  final List<RecipeModel> existingRecipes = await readRecipes();
-  existingRecipes.add(recipe);
+  Future<void> open() async {
+    final databasesPath = await getDatabasesPath();
+    final path = join(databasesPath, 'recipes.db');
 
-  String json = jsonEncode(existingRecipes.map((recipe) => recipe.toJson()).toList());
-  await file.writeAsString(json);
-}
-
-Future<List<RecipeModel>> readRecipes() async {
-  try {
-    final path = await _localPath;
-    final file = File('$path/new/new_recipes.json');
-    final contents = await file.readAsString();
-    final List<dynamic> jsonData = jsonDecode(contents);
-    return jsonData.map((item) => RecipeModel.fromJson(item)).toList();
-  } catch (e) {
-    return [];
+    _database = await openDatabase(
+      path,
+      version: 1,
+      onCreate: (db, version) {
+        return db.execute(
+          'CREATE TABLE recipes(id INTEGER PRIMARY KEY, name TEXT, description TEXT, ingredients TEXT, instructions TEXT, category TEXT, imagePath TEXT)',
+        );
+      },
+    );
   }
-}
 
-Future<String> uploadPhoto(File photo) async {
-  final path = await _localPath;
-  final imagePath = '$path/${DateTime.now().millisecondsSinceEpoch}.jpg';
+  Future<int> insertRecipe(RecipeModel recipe) async {
+    return await _database.insert('recipes', recipe.toMap());
+  }
 
-  await photo.copy(imagePath);
+  Future<List<RecipeModel>> loadExistingRecipes() async {
+    String jsonString = await rootBundle.loadString('assets/database/recipes.json');
+    List<dynamic> jsonResponse = json.decode(jsonString);
+    return jsonResponse.map((model) => RecipeModel.fromJson(model)).toList();
+  }
 
-  return imagePath;
+  Future<List<RecipeModel>> loadNewRecipes() async {
+    final List<Map<String, dynamic>> maps = await _database.query('recipes');
+    return List.generate(maps.length, (i) {
+      return RecipeModel.fromJson(maps[i]);
+    });
+  }
+
+  Future<List<RecipeModel>> loadAllRecipes() async {
+    final List<RecipeModel> existingRecipes = await loadExistingRecipes();
+    final List<RecipeModel> newRecipes = await loadNewRecipes();
+    return [...existingRecipes, ...newRecipes];
+  }
 }
