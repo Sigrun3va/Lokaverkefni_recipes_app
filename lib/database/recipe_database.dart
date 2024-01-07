@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+
 class RecipeModel {
   final String name;
   final String description;
@@ -25,4 +29,31 @@ class RecipeModel {
       imagePath: json['imagePath'],
     );
   }
+
+    Map<String, dynamic> toJson() {
+      return {
+        'name': name,
+        'description': description,
+        'ingredients': ingredients,
+        'instructions': instructions,
+        'category': category,
+        'imagePath': imagePath,
+      };
+    }
+  }
+
+Future<File> get _localFile async {
+  final path = await _localPath;
+  return File('$path/recipes.json');
+}
+
+Future<String> get _localPath async {
+  final directory = await getApplicationDocumentsDirectory();
+  return directory.path;
+}
+
+Future<File> writeRecipes(List<RecipeModel> recipes) async {
+  final file = await _localFile;
+  String json = jsonEncode(recipes.map((recipe) => recipe.toJson()).toList());
+  return file.writeAsString(json);
 }

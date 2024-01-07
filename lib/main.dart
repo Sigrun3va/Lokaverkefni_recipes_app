@@ -15,6 +15,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.pink,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        inputDecorationTheme: const InputDecorationTheme(
+          fillColor: Colors.white,
+          filled: true,
+          labelStyle: TextStyle(color: Colors.black),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.lightBlue),
+          ),
+        ),
       ),
       home: const HomeScreen(),
     );

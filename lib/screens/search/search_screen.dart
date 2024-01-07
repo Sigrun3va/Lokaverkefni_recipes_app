@@ -4,6 +4,7 @@ import 'package:recipes_app/screens/home_screen.dart';
 import 'package:recipes_app/screens/profile/profile_screen.dart';
 import 'package:recipes_app/database/recipe_database.dart';
 import 'package:recipes_app/database/recipe_service.dart';
+import 'package:recipes_app/screens/search/search_results_screen.dart';
 import 'dart:math';
 
 class SearchScreen extends StatelessWidget {
@@ -29,13 +30,13 @@ class SearchScreen extends StatelessWidget {
               final randomRecipe = await getRandomRecipe();
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) =>
-                      RecipeDetailsScreen(recipe: randomRecipe),
+                  builder: (context) => RecipeDetailsScreen(recipe: randomRecipe),
                 ),
               );
             }),
-            _buildSearchSuggestion(
-                'Most Popular!', Icons.trending_up_rounded, () {}),
+            _buildSearchSuggestion('Most Popular!', Icons.trending_up_rounded, () {
+
+            }),
           ],
         ),
       ),
@@ -72,10 +73,14 @@ class SearchScreen extends StatelessWidget {
       ),
       onSubmitted: (String value) async {
         final results = await searchRecipes(value);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => SearchResultsScreen(searchResults: results),
+          ),
+        );
       },
     );
   }
-
   Widget _buildSearchSuggestion(
       String title, IconData icon, VoidCallback onTap) {
     return InkWell(

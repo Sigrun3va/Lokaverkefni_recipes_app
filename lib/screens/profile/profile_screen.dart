@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/screens/home_screen.dart';
 import 'package:recipes_app/screens/search/search_screen.dart';
+import 'package:recipes_app/screens/profile/add_recipe_screen.dart';
+import 'package:recipes_app/database/global_data.dart';
 
 class ProfileScreen extends StatelessWidget {
 
@@ -17,7 +19,14 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {},
+            iconSize: 40,
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const AddRecipeScreen(categories: GlobalData.categories),
+                ),
+              );
+            },
           ),
         ],
       ),

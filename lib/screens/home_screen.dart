@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipes_app/items/bakes_of_the_day_section.dart';
 import 'package:recipes_app/items/category_section.dart';
 import 'package:recipes_app/database/recipe_service.dart';
 import 'package:recipes_app/database/recipe_database.dart';
 import 'package:recipes_app/screens/christmas/recipes_screen.dart';
+import 'package:recipes_app/screens/profile/add_recipe_screen.dart';
 import 'package:recipes_app/screens/profile/profile_screen.dart';
 import 'dart:math';
 
@@ -68,81 +70,97 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            expandedHeight: 450.0,
-            floating: false,
-            pinned: true,
-            flexibleSpace: Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                Image.asset(
-                  'assets/images/christmas-pavlova.png',
-                  fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                expandedHeight: 450.0,
+                floating: false,
+                pinned: true,
+                flexibleSpace: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/christmas-pavlova.png',
+                      fit: BoxFit.cover,
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 20,
+                      right: 20,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const RecipeScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24.0,
+                            vertical: 20.0,
+                          ),
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF181818),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(12),
+                              topRight: Radius.circular(12),
+                            ),
+                          ),
+                          child: const Text(
+                            "12 recipes you need to try for Christmas!",
+                            style: TextStyle(
+                              fontFamily: "HedvigLetterSerif",
+                              fontSize: 28,
+                              color: Colors.white,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Positioned(
-                  bottom: 0,
-                  left: 20,
-                  right: 20,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const RecipeScreen(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24.0,
-                        vertical: 20.0,
-                      ),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF181818),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12),
-                        ),
-                      ),
-                      child: const Text(
-                        "12 recipes you need to try for Christmas!",
-                        style: TextStyle(
-                          fontFamily: "HedvigLetterSerif",
-                          fontSize: 28,
-                          color: Colors.white,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+              ),
+              const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16.0, bottom: 2.0, top: 25.0),
+                  child: Text(
+                    'Categories',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 23,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.only(left: 16.0, bottom: 2.0, top: 25.0),
-              child: Text(
-                'Categories',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold,
-                ),
               ),
+              CategorySection(
+                categories: categories,
+                onCategorySelected: (category) {
+                  setState(() {
+                    selectedCategory = category;
+                  });
+                },
+              ),
+              BakesOfTheDaySection(bakesOfTheDay: bakesOfTheDay),
+            ],
+          ),
+          Positioned(
+            top: 40,
+            right: 20,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        AddRecipeScreen(categories: categories)));
+              },
+              backgroundColor: CupertinoColors.tertiarySystemFill,
+              child: const Icon(Icons.add, size: 40),
             ),
           ),
-          CategorySection(
-            categories: categories,
-            onCategorySelected: (category) {
-              setState(() {
-                selectedCategory = category;
-              });
-            },
-          ),
-                BakesOfTheDaySection(bakesOfTheDay: bakesOfTheDay),
-
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
