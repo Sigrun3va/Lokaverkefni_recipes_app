@@ -511,6 +511,15 @@
     "instructions": "1. In a saucepan, heat milk, chocolate chips, cocoa powder, and sugar over medium heat...\n2. Whisk until chocolate is melted and mixture is smooth. Stir in peppermint extract...\n3. Pour into mugs and top with whipped cream and crushed candy canes...\n4. Enjoy your peppermint hot chocolate!",
     "category": ["Seasonal"],
     "imagePath": "assets/images/comingsoon.jpg"
+  },
+  {
+    "id": "58",
+    "name": "Christmas Pavlova Wreath!",
+    "description": "A Christmas pavlova wreath for the festive season containing your favourite berries, coulis, mint, and delicious whipped cream!",
+    "ingredients": ["6 medium egg whites (or 5 large)r", "300 g white caster sugar", "1 tsp white wine vinegar", "1 tsp cornflour", "1/2 tsp vanilla extract", "450 ml double cream", "2 tbsp icing sugar", "Fresh fruit I used blackberries, pomegranate,"],
+    "instructions": "Preheat your oven to 150C/130C Fan. Line a LARGE baking tray with baking parchment.\nWhisk the egg whites with an stand mixer – I use my Kitchen Aid until they form stiff peaks – when you reach this stage, start adding the sugar 1tsp at a time. Once all of the sugar is incorporated it should be glossy!\nOne at a time, whisk in the white wine vinegar, then the cornflour, then the vanilla and whisk until smooth!\nUsing a small bowl in the middle of the parchment paper, dollop the mixture around it so that once you remove the bowl, it’ll be a ring shape like a wreath!\nI use a tablespoon and do a large spoonful for each dollop and go round the small bowl till I have used all the mixture up. I then use a fork so spike up little bits to give it texture!\nCarefully lift out the bowl and bake in the oven for 1 hour – turn off the heat of the oven and leave to cool completely in the oven, without opening the door. I bake my meringues late at night, and leave them to cool overnight to make things easier!\nPrepare your fruit – chop up any fruits such as the strawberries, and clean all the berries thoroughly! Whip up the double cream with the icing sugar.\nSpread/dollop/pipe the whipped up cream onto the meringue and then add the fruit on top! Add a few mint leaves for colour, and sprinkle with icing sugar! I also used a little edible glitter for a bit of Christmas cheer! Enjoy!",
+    "category": ["Christmas", "Seasonal", "Meringue"],
+    "imagePath": "assets/christmas/recipe1.jpg"
   }
 ]
 

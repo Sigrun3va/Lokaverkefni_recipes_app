@@ -13,7 +13,8 @@ class ProfileScreen extends StatefulWidget {
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProviderStateMixin {
+class _ProfileScreenState extends State<ProfileScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   List<RecipeModel> userAddedRecipes = [];
 
@@ -79,8 +80,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) =>
-                    const AddRecipeScreen(categories: GlobalData.categories),
+                    builder: (context) => const AddRecipeScreen(
+                        categories: GlobalData.categories),
                   ),
                 );
               },
@@ -121,26 +122,28 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           backgroundColor: const Color(0xFF181818),
           unselectedItemColor: Colors.white.withOpacity(0.7),
           selectedItemColor: Colors.lightBlue,
-        )
-    );
+        ));
   }
 
   Widget _buildUserProfile() {
-    return const Row(
-      children: [
-        CircleAvatar(
-          radius: 50,
-          backgroundImage: AssetImage('assets/images/comingsoon.jpg'),
-        ),
-        SizedBox(width: 20),
-        Expanded(
-          child: Text(
-            'Username',
-            style: TextStyle(color: Colors.white, fontSize: 20),
-            overflow: TextOverflow.ellipsis,
+    return const Padding(
+      padding: EdgeInsets.only(left: 16.0),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: AssetImage('assets/images/comingsoon.jpg'),
           ),
-        ),
-      ],
+          SizedBox(width: 20),
+          Expanded(
+            child: Text(
+              'Username',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -164,6 +167,27 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   }
 
   Widget _recipeCard(RecipeModel recipe) {
+    Widget imageWidget = recipe.imagePath.startsWith('http') ||
+            recipe.imagePath.startsWith('https')
+        ? Image.network(
+            recipe.imagePath,
+            width: double.infinity,
+            height: 200,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return const Center(child: Text('Failed to load network image'));
+            },
+          )
+        : Image.asset(
+            recipe.imagePath,
+            width: double.infinity,
+            height: 200,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return const Center(child: Text('Failed to load asset image'));
+            },
+          );
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -173,36 +197,19 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
         );
       },
       child: Card(
-        margin: const EdgeInsets.all(8),
         color: const Color(0xFF181818),
         child: Stack(
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                  child: Image.asset(
-                    recipe.imagePath,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                Expanded(child: imageWidget),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        recipe.name,
-                        style: const TextStyle(color: Colors.white, fontSize: 16),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        recipe.description,
-                        style: const TextStyle(color: Colors.grey, fontSize: 14),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                    ],
+                  padding: const EdgeInsets.all(5.0),
+                  child: Text(
+                    recipe.name,
+                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],

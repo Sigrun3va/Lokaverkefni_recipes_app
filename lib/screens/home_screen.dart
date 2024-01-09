@@ -31,9 +31,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> loadRecipes() async {
-    recipes = await RecipeService().loadRecipes();
-    selectBakesOfTheDay();
-    setState(() {});
+    try {
+      recipes = await RecipeService().loadRecipes();
+      selectBakesOfTheDay();
+      if (mounted) {
+        setState(() {});
+      }
+    } catch (e) {
+      'error';
+    }
   }
 
   Future<void> addInitialRecipes() async {

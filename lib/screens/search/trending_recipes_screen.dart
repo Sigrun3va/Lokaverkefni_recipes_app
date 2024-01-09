@@ -11,7 +11,7 @@ class TrendingRecipesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Trending Recipes'),
+        title: const Text('Rising Star Bakes'),
         backgroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,
@@ -33,13 +33,14 @@ class TrendingRecipesScreen extends StatelessWidget {
                   ? Image.asset(
                 recipe.imagePath,
                 width: 100,
-                height: 100,
+                height: 150,
                 fit: BoxFit.cover,
               )
                   : const Icon(Icons.fastfood, color: Colors.white),
               title: Text(
-                recipe.name,
+                '${index + 1}. ${recipe.name}',
                 style: const TextStyle(color: Colors.white),
+                maxLines: 1,
               ),
               subtitle: Text(
                 recipe.description,

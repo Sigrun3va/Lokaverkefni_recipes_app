@@ -5,6 +5,7 @@ import 'package:recipes_app/database/recipe_database.dart';
 class RecipeService {
   final RecipeDatabase _database = RecipeDatabase.instance;
 
+
   Future<List<RecipeModel>> loadRecipes() async {
     return await _database.loadRecipes();
   }
@@ -30,7 +31,7 @@ class RecipeService {
   }
 
   Future<List<RecipeModel>> getChristmasRecipes() async {
-    return await _database.getChristmasRecipes();
+    return await _database.loadRecipesByCategory('Christmas');
   }
 
   Future<RecipeModel?> getRandomRecipe() async {
