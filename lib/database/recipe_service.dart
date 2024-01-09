@@ -39,9 +39,9 @@ class RecipeService {
 
   Future<void> addRecipesFromJson() async {
     final jsonString = await rootBundle.loadString('assets/database/recipes.json');
-    print(jsonString);  // Check the raw JSON string
+    print(jsonString);
     final List<dynamic> jsonData = jsonDecode(jsonString);
-    print(jsonData);  // Check the decoded JSON data
+    print(jsonData);
     List<RecipeModel> recipes = jsonData.map((json) => RecipeModel.fromMap(json)).toList();
 
     for (var recipe in recipes) {

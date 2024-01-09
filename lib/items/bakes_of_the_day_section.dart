@@ -51,18 +51,11 @@ class BakesOfTheDaySection extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.network(
-                          bake.imagePath,
+                        Image.asset(
+                          'assets/images/comingsoon.jpg', // Placeholder image
                           width: 150,
                           height: 150,
                           fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return const Center(child: CircularProgressIndicator());
-                          },
-                          errorBuilder: (context, error, stackTrace) {
-                            return const Center(child: Text('Image not available'));
-                          },
                         ),
                         const SizedBox(height: 10),
                         Padding(
@@ -78,8 +71,8 @@ class BakesOfTheDaySection extends StatelessWidget {
                         ),
                       ],
                     ),
+                      ),
                   ),
-                ),
                 );
               },
             ),

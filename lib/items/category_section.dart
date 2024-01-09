@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/items/category_item.dart';
-import 'package:recipes_app/screens/category/category_detail_screen.dart';
 
 class CategorySection extends StatelessWidget {
   final List<String> categories;
@@ -25,7 +24,7 @@ class CategorySection extends StatelessWidget {
             final categoryName = categories[index];
 
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(9.0),
               child: InkWell(
                 onTap: () => onCategorySelected(categoryName, index),
                 child: CategoryItem(
