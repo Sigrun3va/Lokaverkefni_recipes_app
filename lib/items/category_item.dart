@@ -12,26 +12,22 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 9.0, vertical: 12.0),
-      child: Column(
-        children: <Widget>[
-          Semantics(
-            label: categoryName,
-            child: Image.asset(imagePath, width: 105, height: 105),
+    return Column(
+      children: [
+        Expanded(
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return const Center(child: Text('Failed to load image'));
+            },
           ),
-          const SizedBox(height: 10),
-          Text(
-            categoryName,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
+        ),
+        Text(
+          categoryName,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+      ],
     );
   }
 }

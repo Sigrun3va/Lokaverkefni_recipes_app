@@ -26,11 +26,7 @@ class RecipeItem extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 height: 200,
-                child: Image.asset(
-                  recipe.imagePath,
-                  fit: BoxFit.cover,
-                  semanticLabel: 'Recipe Image',
-                ),
+                child: _buildImage(recipe.imagePath),
               ),
             ),
             const SizedBox(height: 8.0),
@@ -46,5 +42,29 @@ class RecipeItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildImage(String imagePath) {
+    if (imagePath.startsWith('http')) {
+      return Image.network(
+        imagePath,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return const Center(child: CircularProgressIndicator());
+        },
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(child: Text('Failed to load image'));
+        },
+      );
+    } else {
+      return Image.asset(
+        imagePath,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(child: Text('Failed to load image'));
+        },
+      );
+    }
   }
 }

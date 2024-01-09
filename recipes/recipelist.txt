@@ -1,0 +1,32 @@
+Recipe Name: Chocolate Chip Cookies
+Description: Delicious homemade chocolate chip cookies.
+Ingredients:
+- 2 1/4 cups all-purpose flour
+- 1/2 teaspoon baking soda
+- 1 cup unsalted butter, room temperature
+- 1/2 cup granulated sugar
+- 1 cup packed light-brown sugar
+- 1 teaspoon salt
+- 2 teaspoons pure vanilla extract
+- 2 large eggs
+- 2 cups semisweet and/or milk chocolate chips
+
+Instructions:
+1. Preheat your oven to 350°F (175°C).
+2. In a small bowl, mix the flour and baking soda; set aside.
+3. In a large bowl, cream the butter, granulated sugar, brown sugar, and salt together until smooth.
+4. Beat in the vanilla extract and eggs until the mixture is creamy.
+5. Gradually blend in the dry ingredients.
+6. Stir in the chocolate chips.
+7. Drop rounded tablespoons of the dough onto ungreased baking sheets.
+8. Bake for 10 to 12 minutes until the edges are golden brown.
+9. Cool on wire racks.
+
+Category: Cookies
+Image Path: assets/images/chocolate_chip_cookies.jpg
+
+---
+
+
+
+---

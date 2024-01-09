@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/database/recipe_database.dart';
+import 'package:recipes_app/database/recipe_service.dart';
 import 'package:recipes_app/screens/category/recipe_detail_screen.dart';
 
 class RecipeScreen extends StatelessWidget {
@@ -7,80 +8,60 @@ class RecipeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Recipe> recipes = [
-      Recipe('Meringue Christmas Wreath', 'assets/christmas/recipe1.jpg'),
-      Recipe('Icelandic Laufabrauð', 'assets/christmas/recipe2.jpg'),
-      Recipe('Gingerbread Bliss Balls', 'assets/christmas/recipe3.jpg'),
-      Recipe('Liquorice Meringue Bites ', 'assets/christmas/recipe4.jpg'),
-      Recipe('Christmas Carrot Cake', 'assets/christmas/recipe5.jpg'),
-      Recipe('Brown Layer Cake', 'assets/christmas/recipe6.jpg'),
-      Recipe('Cream Buns', 'assets/christmas/recipe7.jpg'),
-      Recipe('Gingerbread Macarons', 'assets/christmas/recipe8.jpg'),
-      Recipe('Black Forest Trifle', 'assets/christmas/recipe9.jpg'),
-      Recipe('Gingerbread Christmas Pudding', 'assets/christmas/recipe10.jpg'),
-      Recipe('Sticky Toffee Pudding', 'assets/christmas/recipe11.jpg'),
-      Recipe('Mini Cranberry Pavlovas', 'assets/christmas/recipe12.jpg'),
-    ];
+    final Future<List<RecipeModel>> futureRecipes = RecipeService().getChristmasRecipes();
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('12 recipes.json for Christmas'),
+        title: const Text('12 Recipes for Christmas'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
       ),
       backgroundColor: Colors.black,
-      body: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.7,
-        ),
-        itemCount: recipes.length,
-        itemBuilder: (context, index) {
-          final recipe = recipes[index];
-          return RecipeItem(recipe: recipe);
+      body: FutureBuilder<List<RecipeModel>>(
+        future: futureRecipes,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return const Center(child: Text('Error loading recipes'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No Christmas recipes found'));
+          } else {
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.7,
+              ),
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                final RecipeModel recipe = snapshot.data![index];
+                return RecipeItem(recipe: recipe);
+              },
+            );
+          }
         },
       ),
     );
   }
 }
 
-class Recipe {
-  final String name;
-  final String imagePath;
-
-  Recipe(this.name, this.imagePath);
-}
-
 class RecipeItem extends StatelessWidget {
-  final Recipe recipe;
+  final RecipeModel recipe;
 
-  const RecipeItem({super.key, required this.recipe});
+  const RecipeItem({Key? key, required this.recipe}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RecipeDetailsScreen(
-                recipe: RecipeModel(
-                  id: 55488897,
-              name: recipe.name,
-              description: '',
-              ingredients: [],
-              instructions: '',
-              category: '',
-              imagePath: recipe.imagePath,
-            )),
-          ),
-        );
-      },
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RecipeDetailsScreen(recipe: recipe),
+        ),
+      ),
       child: Card(
         color: const Color(0xFF181818),
         child: Column(

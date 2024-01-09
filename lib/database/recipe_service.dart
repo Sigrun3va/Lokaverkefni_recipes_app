@@ -1,41 +1,51 @@
 import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart';
 import 'package:recipes_app/database/recipe_database.dart';
 
 class RecipeService {
+  final RecipeDatabase _database = RecipeDatabase.instance;
+
   Future<List<RecipeModel>> loadRecipes() async {
-    List<RecipeModel> assetRecipes = await _loadAssetRecipes();
-    List<RecipeModel> localRecipes = await loadLocalRecipes();
-
-    return [...assetRecipes, ...localRecipes];
-  }
-
-  Future<List<RecipeModel>> _loadAssetRecipes() async {
-    String jsonString = await rootBundle.loadString('assets/recipes.json');
-    List<dynamic> jsonResponse = json.decode(jsonString);
-
-    List<RecipeModel> recipes = jsonResponse.map((model) => RecipeModel.fromJson(model)).toList();
-
-    return recipes;
-  }
-
-  Future<List<RecipeModel>> loadLocalRecipes() async {
-    final path = await _localPath;
-    final database = RecipeDatabase();
-    await database.open();
-
-    return await database.loadAllRecipes();
+    return await _database.loadRecipes();
   }
 
   Future<void> writeRecipe(RecipeModel newRecipe) async {
-    final database = RecipeDatabase();
-    await database.open();
-    await database.insertRecipe(newRecipe);
+    await _database.insertRecipe(newRecipe);
   }
 
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
+  Future<void> updateRecipe(RecipeModel updatedRecipe) async {
+    await _database.updateRecipe(updatedRecipe);
+  }
+
+  Future<void> deleteRecipe(int recipeId) async {
+    await _database.deleteRecipe(recipeId);
+  }
+
+  Future<List<RecipeModel>> loadRecipesByCategory(String category) async {
+    return await _database.loadRecipesByCategory(category);
+  }
+
+  Future<List<RecipeModel>> searchRecipes(String query) async {
+    return await _database.searchRecipes(query);
+  }
+
+  Future<List<RecipeModel>> getChristmasRecipes() async {
+    return await _database.getChristmasRecipes();
+  }
+
+  Future<RecipeModel?> getRandomRecipe() async {
+    return await _database.getRandomRecipe();
+  }
+
+  Future<void> addRecipesFromJson() async {
+    final jsonString = await rootBundle.loadString('assets/database/recipes.json');
+    print(jsonString);  // Check the raw JSON string
+    final List<dynamic> jsonData = jsonDecode(jsonString);
+    print(jsonData);  // Check the decoded JSON data
+    List<RecipeModel> recipes = jsonData.map((json) => RecipeModel.fromMap(json)).toList();
+
+    for (var recipe in recipes) {
+      await _database.insertRecipe(recipe);
+    }
   }
 }

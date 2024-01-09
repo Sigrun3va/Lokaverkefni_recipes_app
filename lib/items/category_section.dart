@@ -4,7 +4,7 @@ import 'package:recipes_app/screens/category/category_detail_screen.dart';
 
 class CategorySection extends StatelessWidget {
   final List<String> categories;
-  final Function(String?) onCategorySelected;
+  final Function(String, int?) onCategorySelected;
 
   const CategorySection({
     Key? key,
@@ -16,28 +16,21 @@ class CategorySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 200,
+        height: 140,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: categories.length,
           itemBuilder: (context, index) {
+            final imagePath = 'assets/images/${index + 1}.png';
+            final categoryName = categories[index];
+
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
-                onTap: () {
-                  onCategorySelected(categories[index]);
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => CategoryDetailScreen(categoryName: categories[index]),
-                    ),
-                  );
-                },
-                child: Semantics(
-                  label: categories[index],
-                  child: CategoryItem(
-                    imagePath: 'assets/images/${index + 1}.png',
-                    categoryName: categories[index],
-                  ),
+                onTap: () => onCategorySelected(categoryName, index),
+                child: CategoryItem(
+                  imagePath: imagePath,
+                  categoryName: categoryName,
                 ),
               ),
             );

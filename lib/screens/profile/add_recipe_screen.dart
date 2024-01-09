@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recipes_app/database/recipe_database.dart';
 import 'package:recipes_app/database/recipe_service.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class AddRecipeScreen extends StatefulWidget {
   final List<String> categories;
@@ -19,8 +21,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   final descriptionController = TextEditingController();
   final ingredientsController = TextEditingController();
   final instructionsController = TextEditingController();
-  String? selectedCategory;
-
+  List<String> selectedCategories = [];
+  String? imagePath;
 
   @override
   void dispose() {
@@ -31,16 +33,17 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     super.dispose();
   }
 
-  void _submitRecipe() async {
+  Future<void> _submitRecipe() async {
     if (_formKey.currentState!.validate()) {
       RecipeModel newRecipe = RecipeModel(
-        id: 55488897,
-        name: 'Recipe Name',
-        description: 'Recipe Description',
-        ingredients: ['Ingredient 1', 'Ingredient 2'],
-        instructions: 'Recipe Instructions',
-        category: 'Category',
-        imagePath: 'image_path.jpg',
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        name: nameController.text,
+        description: descriptionController.text,
+        ingredients: ingredients,
+        instructions: instructionsController.text,
+        category:
+            selectedCategories,
+        imagePath: imagePath ?? 'default_image_path',
       );
 
       final recipeService = RecipeService();
@@ -92,26 +95,31 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   Widget _buildAddPhotoButton() {
     return InkWell(
-      onTap: () {},
+      onTap: _addPhoto,
       child: Container(
         height: 150,
         decoration: BoxDecoration(
           color: Colors.grey[800],
           borderRadius: BorderRadius.circular(10),
         ),
-        child: const Center(
-          child: Icon(
-            Icons.add_a_photo,
-            color: Colors.white,
-            size: 50,
-          ),
-        ),
+        child: imagePath == null
+            ? const Center(
+                child: Icon(Icons.add_a_photo, color: Colors.white, size: 50),
+              )
+            : Image.file(File(imagePath!), fit: BoxFit.cover),
       ),
     );
   }
 
-  void _addPhoto() {
-    // TODO: image_picker??
+  Future<void> _addPhoto() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        imagePath = image.path;
+      });
+    }
   }
 
   Widget _buildIngredientList() {
@@ -120,8 +128,10 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       itemCount: ingredients.length,
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text(ingredients[index],
-              style: const TextStyle(color: Colors.white)),
+          title: Text(
+            ingredients[index],
+            style: const TextStyle(color: Colors.white),
+          ),
           trailing: IconButton(
             icon: const Icon(Icons.delete, color: Colors.deepOrange),
             onPressed: () => _removeIngredient(index),
@@ -152,21 +162,23 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   }
 
   Widget _buildCategoryDropdown() {
-    return DropdownButtonFormField<String>(
+    return DropdownButtonFormField<List<String>>(
       decoration: _buildInputDecoration('Category'),
-      value: selectedCategory,
-      onChanged: (String? newValue) {
+      value: selectedCategories,
+      onChanged: (List<String>? newValue) {
         setState(() {
-          selectedCategory = newValue;
+          selectedCategories = newValue ?? [];
         });
       },
-      items: widget.categories.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
+      items:
+          widget.categories.map<DropdownMenuItem<List<String>>>((String value) {
+        return DropdownMenuItem<List<String>>(
+          value: [value],
           child: Text(value, style: const TextStyle(color: Colors.grey)),
         );
       }).toList(),
-      validator: (value) => value == null ? 'Please select a category' : null,
+      validator: (value) =>
+          value == null || value.isEmpty ? 'Please select a category' : null,
     );
   }
 

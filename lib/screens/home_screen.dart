@@ -9,6 +9,7 @@ import 'package:recipes_app/screens/profile/add_recipe_screen.dart';
 import 'package:recipes_app/screens/profile/profile_screen.dart';
 import 'dart:math';
 import 'package:recipes_app/screens/search/search_screen.dart';
+import 'category/category_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,13 +27,17 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    loadRecipes();
+    addInitialRecipes().then((_) => loadRecipes());
   }
 
   Future<void> loadRecipes() async {
     recipes = await RecipeService().loadRecipes();
     selectBakesOfTheDay();
     setState(() {});
+  }
+
+  Future<void> addInitialRecipes() async {
+    await RecipeService().addRecipesFromJson();
   }
 
   void selectBakesOfTheDay() {
@@ -125,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 16.0, bottom: 2.0, top: 25.0),
+                  padding: EdgeInsets.only(left: 16.0, bottom: 2.0, top: 30.0),
                   child: Text(
                     'Categories',
                     style: TextStyle(
@@ -138,10 +143,18 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               CategorySection(
                 categories: categories,
-                onCategorySelected: (category) {
-                  setState(() {
-                    selectedCategory = category;
-                  });
+                onCategorySelected: (String category, int? index) {
+                  if (index != null) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CategoryDetailScreen(
+                          categoryName: category,
+                          categoryImageIndex: index + 1,
+                        ),
+                      ),
+                    );
+                  } else {
+                  }
                 },
               ),
               BakesOfTheDaySection(bakesOfTheDay: bakesOfTheDay),

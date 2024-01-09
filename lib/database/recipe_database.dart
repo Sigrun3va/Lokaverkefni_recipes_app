@@ -1,16 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class RecipeModel {
-  final int id;
+  final String id;
   final String name;
   final String description;
   final List<String> ingredients;
   final String instructions;
-  final String category;
+  final List<String> category;
   final String imagePath;
 
   RecipeModel({
@@ -23,14 +21,18 @@ class RecipeModel {
     required this.imagePath,
   });
 
-  factory RecipeModel.fromJson(Map<String, dynamic> map) {
+  factory RecipeModel.fromMap(Map<String, dynamic> map) {
     return RecipeModel(
-      id: map['id'],
+      id: map['id'] ?? '',
       name: map['name'],
       description: map['description'],
-      ingredients: List<String>.from(jsonDecode(map['ingredients'])),
+      ingredients: map['ingredients'] is String
+          ? List<String>.from(jsonDecode(map['ingredients']))
+          : List<String>.from(map['ingredients']),
       instructions: map['instructions'],
-      category: map['category'],
+      category: map['category'] is String
+          ? List<String>.from(jsonDecode(map['category']))
+          : List<String>.from(map['category']),
       imagePath: map['imagePath'],
     );
   }
@@ -42,52 +44,131 @@ class RecipeModel {
       'description': description,
       'ingredients': jsonEncode(ingredients),
       'instructions': instructions,
-      'category': category,
+      'category': jsonEncode(category),
       'imagePath': imagePath,
     };
   }
 }
 
 class RecipeDatabase {
-  late Database _database;
+  static final RecipeDatabase instance = RecipeDatabase._init();
+  static Database? _database;
 
-  RecipeDatabase();
+  RecipeDatabase._init();
 
-  Future<void> open() async {
-    final databasesPath = await getDatabasesPath();
-    final path = join(databasesPath, 'recipes.db');
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+    _database = await _initDB('recipes.db');
+    return _database!;
+  }
 
-    _database = await openDatabase(
-      path,
-      version: 1,
-      onCreate: (db, version) {
-        return db.execute(
-          'CREATE TABLE recipes(id INTEGER PRIMARY KEY, name TEXT, description TEXT, ingredients TEXT, instructions TEXT, category TEXT, imagePath TEXT)',
-        );
-      },
+  Future<bool> recipeExists(String recipeId) async {
+    final db = await database;
+    final result = await db.query(
+      'recipes',
+      where: 'id = ?',
+      whereArgs: [recipeId],
+      limit: 1,
     );
+    return result.isNotEmpty;
+  }
+
+  Future<Database> _initDB(String filePath) async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, filePath);
+
+    return await openDatabase(path, version: 1, onCreate: _createDB);
+  }
+
+  Future _createDB(Database db, int version) async {
+    await db.execute('''
+      CREATE TABLE recipes(
+        id TEXT PRIMARY KEY,
+        name TEXT,
+        description TEXT,
+        ingredients TEXT,
+        instructions TEXT,
+        category TEXT,
+        imagePath TEXT
+      )
+    ''');
   }
 
   Future<int> insertRecipe(RecipeModel recipe) async {
-    return await _database.insert('recipes', recipe.toMap());
+    final db = await database;
+    return db.insert(
+      'recipes',
+      recipe.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
   }
 
-  Future<List<RecipeModel>> loadExistingRecipes() async {
-    String jsonString = await rootBundle.loadString('assets/database/recipes.json');
-    List<dynamic> jsonResponse = json.decode(jsonString);
-    return jsonResponse.map((model) => RecipeModel.fromJson(model)).toList();
+  Future<void> updateRecipe(RecipeModel recipe) async {
+    final db = await instance.database;
+    await db.update(
+      'recipes',
+      recipe.toMap(),
+      where: 'id = ?',
+      whereArgs: [recipe.id],
+    );
   }
 
-  Future<List<RecipeModel>> loadNewRecipes() async {
-    final List<Map<String, dynamic>> maps = await _database.query('recipes');
-    return List.generate(maps.length, (i) {
-      return RecipeModel.fromJson(maps[i]);
-    });
+  Future<void> deleteRecipe(int id) async {
+    final db = await instance.database;
+    await db.delete(
+      'recipes',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 
-  Future<List<RecipeModel>> loadAllRecipes() async {
-    final List<RecipeModel> existingRecipes = await loadExistingRecipes();
-    final List<RecipeModel> newRecipes = await loadNewRecipes();
-    return [...existingRecipes, ...newRecipes];
+  Future<List<RecipeModel>> loadRecipes() async {
+    final db = await instance.database;
+    final result = await db.query('recipes');
+    return result.map((json) => RecipeModel.fromMap(json)).toList();
   }
-}
+
+  Future<List<RecipeModel>> searchRecipes(String query) async {
+    final db = await instance.database;
+    final result = await db.query(
+      'recipes',
+      where: 'name LIKE ?',
+      whereArgs: ['%$query%'],
+    );
+    return result.map((json) => RecipeModel.fromMap(json)).toList();
+  }
+
+  Future<List<RecipeModel>> loadRecipesByCategory(String category) async {
+    final db = await instance.database;
+    final result = await db.query(
+      'recipes',
+      where: 'LOWER(category) = ?',
+      whereArgs: [category.toLowerCase()],
+    );
+    return result.map((json) => RecipeModel.fromMap(json)).toList();
+  }
+
+  Future<List<RecipeModel>> getChristmasRecipes() async {
+    final db = await instance.database;
+    final result = await db.query(
+      'recipes',
+      where: 'category = ?',
+      whereArgs: ['Christmas'],
+      limit: 12,
+    );
+    return result.map((json) => RecipeModel.fromMap(json)).toList();
+  }
+
+    Future<RecipeModel?> getRandomRecipe() async {
+      final db = await instance.database;
+      final result = await db.query(
+        'recipes',
+        orderBy: 'RANDOM()',
+        limit: 1,
+      );
+      if (result.isNotEmpty) {
+        return RecipeModel.fromMap(result.first);
+      }
+      return null;
+    }
+  }

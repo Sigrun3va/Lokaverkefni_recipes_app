@@ -6,8 +6,13 @@ import 'package:recipes_app/items/app_bar.dart';
 
 class CategoryDetailScreen extends StatefulWidget {
   final String categoryName;
+  final int categoryImageIndex;
 
-  const CategoryDetailScreen({Key? key, required this.categoryName}) : super(key: key);
+  const CategoryDetailScreen({
+    Key? key,
+    required this.categoryName,
+    required this.categoryImageIndex,
+  }) : super(key: key);
 
   @override
   _CategoryDetailScreenState createState() => _CategoryDetailScreenState();
@@ -23,12 +28,36 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   }
 
   Future<void> loadCategoryRecipes() async {
-    List<RecipeModel> allRecipes = await RecipeService().loadRecipes();
-    setState(() {
-      recipesForCategory = allRecipes
-          .where((recipe) => recipe.category.toLowerCase() == widget.categoryName.toLowerCase())
-          .toList();
-    });
+    recipesForCategory = await RecipeService().loadRecipesByCategory(widget.categoryName);
+    setState(() {});
+  }
+
+  Widget loadImage(String imagePath) {
+    if (imagePath.startsWith('http') || imagePath.startsWith('https')) {
+      return Image.network(
+        imagePath,
+        width: double.infinity,
+        height: 200,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return const Center(child: CircularProgressIndicator());
+        },
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(child: Text('Failed to load network image'));
+        },
+      );
+    } else {
+      return Image.asset(
+        imagePath,
+        width: double.infinity,
+        height: 200,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(child: Text('Failed to load asset image'));
+        },
+      );
+    }
   }
 
   @override
@@ -49,6 +78,8 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
         itemCount: recipesForCategory.length,
         itemBuilder: (context, index) {
           final recipe = recipesForCategory[index];
+          Widget imageWidget = loadImage(recipe.imagePath);
+
           return GestureDetector(
             onTap: () {
               Navigator.push(
@@ -62,12 +93,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
               color: const Color(0xFF181818),
               child: Column(
                 children: [
-                  Image.asset(
-                    recipe.imagePath,
-                    width: double.infinity,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
+                  imageWidget,
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -85,4 +111,3 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
     );
   }
 }
-

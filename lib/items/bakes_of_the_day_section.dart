@@ -34,7 +34,6 @@ class BakesOfTheDaySection extends StatelessWidget {
               itemCount: bakesOfTheDay.length,
               itemBuilder: (context, index) {
                 final bake = bakesOfTheDay[index];
-
                 return GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
@@ -43,18 +42,27 @@ class BakesOfTheDaySection extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Container(
+                  child: Card(
+                    color: Colors.black,
+                      child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     width: 150,
                     color: Colors.black,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset(
+                        Image.network(
                           bake.imagePath,
                           width: 150,
                           height: 150,
                           fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return const Center(child: CircularProgressIndicator());
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Center(child: Text('Image not available'));
+                          },
                         ),
                         const SizedBox(height: 10),
                         Padding(
@@ -71,6 +79,7 @@ class BakesOfTheDaySection extends StatelessWidget {
                       ],
                     ),
                   ),
+                ),
                 );
               },
             ),

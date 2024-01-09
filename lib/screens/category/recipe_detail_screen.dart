@@ -32,7 +32,7 @@ class RecipeDetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical:  25.0),
               decoration: BoxDecoration(
                 color: const Color(0xFF181818),
-              borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
                 recipe.name,
