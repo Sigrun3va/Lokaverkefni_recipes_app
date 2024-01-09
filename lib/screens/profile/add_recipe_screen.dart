@@ -34,22 +34,35 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   }
 
   Future<void> _submitRecipe() async {
-    if (_formKey.currentState!.validate()) {
-      RecipeModel newRecipe = RecipeModel(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        name: nameController.text,
-        description: descriptionController.text,
-        ingredients: ingredients,
-        instructions: instructionsController.text,
-        category:
-            selectedCategories,
-        imagePath: imagePath ?? 'default_image_path',
+    if (_formKey.currentState!.validate() && ingredients.isNotEmpty) {
+      try {
+        String defaultImagePath = 'assets/images/comingsoon.jpg';
+        RecipeModel newRecipe = RecipeModel(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          name: nameController.text,
+          description: descriptionController.text,
+          ingredients: ingredients,
+          instructions: instructionsController.text,
+          category: selectedCategories,
+          imagePath: imagePath ?? defaultImagePath,
+        );
+
+        final recipeService = RecipeService();
+        await recipeService.writeRecipe(newRecipe);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Recipe added successfully!')),
+        );
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error submitting recipe: $e')),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill all required fields and add at least one ingredient')),
       );
-
-      final recipeService = RecipeService();
-      await recipeService.writeRecipe(newRecipe);
-
-      Navigator.pop(context);
     }
   }
 
@@ -90,6 +103,10 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         ingredients.add(ingredientController.text);
         ingredientController.clear();
       });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter an ingredient before adding')),
+      );
     }
   }
 
