@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recipes_app/database/recipe_database.dart';
 import 'package:recipes_app/screens/category/recipe_detail_screen.dart';
+import 'package:recipes_app/model/recipe_model.dart';
+
 
 class BakesOfTheDaySection extends StatelessWidget {
   final List<RecipeModel> bakesOfTheDay;

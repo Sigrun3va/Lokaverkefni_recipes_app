@@ -4,7 +4,9 @@ import 'package:recipes_app/screens/home_screen.dart';
 import 'package:recipes_app/screens/search/search_screen.dart';
 import 'package:recipes_app/screens/profile/add_recipe_screen.dart';
 import 'package:recipes_app/database/global_data.dart';
-import 'package:recipes_app/database/recipe_database.dart';
+import 'package:recipes_app/services/recipe_database.dart';
+import 'package:recipes_app/model/recipe_model.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);

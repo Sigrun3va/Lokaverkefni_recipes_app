@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipes_app/database/recipe_database.dart';
+import 'package:recipes_app/model/recipe_model.dart';
 import 'package:recipes_app/screens/category/recipe_detail_screen.dart';
 
 class TrendingRecipesScreen extends StatelessWidget {

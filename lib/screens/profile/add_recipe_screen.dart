@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipes_app/database/recipe_database.dart';
-import 'package:recipes_app/database/recipe_service.dart';
+import 'package:recipes_app/model/recipe_model.dart';
+import 'package:recipes_app/services/recipe_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 

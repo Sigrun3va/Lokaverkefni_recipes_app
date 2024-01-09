@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:recipes_app/database/recipe_database.dart';
+import 'package:recipes_app/services/recipe_database.dart';
+import 'package:recipes_app/model/recipe_model.dart';
 
 class RecipeService {
   final RecipeDatabase _database = RecipeDatabase.instance;
@@ -31,7 +32,14 @@ class RecipeService {
   }
 
   Future<List<RecipeModel>> getChristmasRecipes() async {
-    return await _database.loadRecipesByCategory('Christmas');
+    final db = await _database.database;
+    final result = await db.rawQuery('''
+    SELECT DISTINCT recipes.*
+    FROM recipes
+    WHERE recipes.category LIKE '%Christmas%'
+    LIMIT 12
+  ''');
+    return result.map((json) => RecipeModel.fromMap(json)).toList();
   }
 
   Future<RecipeModel?> getRandomRecipe() async {
