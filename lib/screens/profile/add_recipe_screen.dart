@@ -162,23 +162,22 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   }
 
   Widget _buildCategoryDropdown() {
-    return DropdownButtonFormField<List<String>>(
+    return DropdownButtonFormField<String>(
       decoration: _buildInputDecoration('Category'),
-      value: selectedCategories,
-      onChanged: (List<String>? newValue) {
+      value: selectedCategories.isNotEmpty ? selectedCategories[0] : null, // Use a single selected category
+      onChanged: (String? newValue) {
         setState(() {
-          selectedCategories = newValue ?? [];
+          selectedCategories = [newValue ?? ''];
         });
       },
-      items:
-          widget.categories.map<DropdownMenuItem<List<String>>>((String value) {
-        return DropdownMenuItem<List<String>>(
-          value: [value],
+      items: widget.categories.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
           child: Text(value, style: const TextStyle(color: Colors.grey)),
         );
       }).toList(),
       validator: (value) =>
-          value == null || value.isEmpty ? 'Please select a category' : null,
+      value == null || value.isEmpty ? 'Please select a category' : null,
     );
   }
 
