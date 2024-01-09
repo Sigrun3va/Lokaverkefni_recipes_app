@@ -17,7 +17,7 @@ class BakesOfTheDaySection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.fromLTRB(16.0, 25.0, 16.0, 15.0),
+            padding: EdgeInsets.fromLTRB(16.0, 65.0, 16.0, 15.0),
             child: Text(
               'Bakes of the day!',
               style: TextStyle(

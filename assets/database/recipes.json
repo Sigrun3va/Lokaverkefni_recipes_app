@@ -3,9 +3,9 @@
     "id": "1",
     "name": "Vanilla Bean Cupcakes",
     "description": "Light and fluffy cupcakes infused with vanilla bean.",
-    "ingredients": "[\"1 3/4 cups all-purpose flour\", \"1 cup sugar\", \"1/2 cup butter, softened\", \"2 eggs\", \"1 vanilla bean, scraped\", \"1/2 cup whole milk\", \"1 1/2 tsp baking powder\", \"1/4 tsp salt\"]",
+    "ingredients": ["1 3/4 cups all-purpose flour", "1 cup sugar", "1/2 cup butter, softened", "2 eggs", "1 vanilla bean, scraped", "1/2 cup whole milk", "1 1/2 tsp baking powder", "1/4 tsp salt"],
     "instructions": "1. Preheat oven to 350°F. Cream butter and sugar...\n2. Add eggs and vanilla bean...\n3. Mix in dry ingredients alternately with milk...\n4. Divide batter into cupcake liners and bake for 20 minutes.",
-    "category": "[\"Cupcakes\"]",
+    "category": ["Cupcakes"],
     "imagePath": "assets/images/comingsoon.jpg"
   },
   {

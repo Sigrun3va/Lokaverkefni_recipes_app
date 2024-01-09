@@ -7,6 +7,8 @@ import 'package:recipes_app/database/recipe_service.dart';
 import 'package:recipes_app/screens/search/search_results_screen.dart';
 import 'dart:math';
 
+import 'package:recipes_app/screens/search/trending_recipes_screen.dart';
+
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
@@ -34,8 +36,13 @@ class SearchScreen extends StatelessWidget {
                 ),
               );
             }),
-            _buildSearchSuggestion('Most Popular!', Icons.trending_up_rounded, () {
-
+            _buildSearchSuggestion('Most Popular!', Icons.trending_up_rounded, () async {
+              final trendingRecipes = await getTrendingRecipes();
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => TrendingRecipesScreen(trendingRecipes: trendingRecipes),
+                ),
+              );
             }),
           ],
         ),
@@ -114,6 +121,15 @@ class SearchScreen extends StatelessWidget {
       final recipeLower = recipe.name.toLowerCase();
       return recipeLower.contains(queryLower);
     }).toList();
+  }
+
+  Future<List<RecipeModel>> getTrendingRecipes() async {
+    final recipeService = RecipeService();
+    final allRecipes = await recipeService.loadRecipes();
+    final random = Random();
+
+    allRecipes.shuffle();
+    return allRecipes.take(10).toList();
   }
 
   Future<RecipeModel> getRandomRecipe() async {

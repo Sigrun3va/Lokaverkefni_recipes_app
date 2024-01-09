@@ -82,24 +82,41 @@ class RecipeDatabase {
 
   Future _createDB(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE recipes(
-        id TEXT PRIMARY KEY,
-        name TEXT,
-        description TEXT,
-        ingredients TEXT,
-        instructions TEXT,
-        category TEXT,
-        imagePath TEXT
-      )
-    ''');
+    CREATE TABLE recipes(
+      id TEXT PRIMARY KEY,
+      name TEXT,
+      description TEXT,
+      ingredients TEXT,
+      instructions TEXT,
+      category TEXT,
+      imagePath TEXT
+    )
+  ''');
+
+    await db.execute('''
+    CREATE TABLE categories(
+      id INTEGER PRIMARY KEY,
+      name TEXT
+    )
+  ''');
+
+    await db.execute('''
+    CREATE TABLE recipe_categories(
+      recipe_id TEXT,
+      category_id INTEGER,
+      FOREIGN KEY(recipe_id) REFERENCES recipes(id),
+      FOREIGN KEY(category_id) REFERENCES categories(id),
+      PRIMARY KEY(recipe_id, category_id)
+    )
+  ''');
   }
 
   Future<int> insertRecipe(RecipeModel recipe) async {
     final db = await database;
-    return db.insert(
+    return await db.insert(
       'recipes',
       recipe.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.ignore,
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
@@ -138,14 +155,9 @@ class RecipeDatabase {
     return result.map((json) => RecipeModel.fromMap(json)).toList();
   }
 
-  Future<List<RecipeModel>> loadRecipesByCategory(String category) async {
-    final db = await instance.database;
-    final result = await db.query(
-      'recipes',
-      where: 'LOWER(category) = ?',
-      whereArgs: [category.toLowerCase()],
-    );
-    return result.map((json) => RecipeModel.fromMap(json)).toList();
+  Future<List<RecipeModel>> loadRecipesByCategory(String categoryName) async {
+    final allRecipes = await loadRecipes();
+    return allRecipes.where((recipe) => recipe.category.contains(categoryName)).toList();
   }
 
   Future<List<RecipeModel>> getChristmasRecipes() async {
@@ -171,4 +183,5 @@ class RecipeDatabase {
       }
       return null;
     }
+
   }

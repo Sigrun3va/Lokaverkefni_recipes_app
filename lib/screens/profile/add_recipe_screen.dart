@@ -112,13 +112,21 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   }
 
   Future<void> _addPhoto() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    try {
+      final ImagePicker _picker = ImagePicker();
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
-    if (image != null) {
-      setState(() {
-        imagePath = image.path;
-      });
+      if (image != null) {
+        setState(() {
+          imagePath = image.path;
+        });
+      } else {
+
+        print('Image picking was cancelled.');
+      }
+    } catch (e) {
+      
+      print('An error occurred while picking the image: $e');
     }
   }
 
@@ -162,22 +170,44 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   }
 
   Widget _buildCategoryDropdown() {
-    return DropdownButtonFormField<String>(
-      decoration: _buildInputDecoration('Category'),
-      value: selectedCategories.isNotEmpty ? selectedCategories[0] : null, // Use a single selected category
-      onChanged: (String? newValue) {
-        setState(() {
-          selectedCategories = [newValue ?? ''];
-        });
-      },
-      items: widget.categories.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value, style: const TextStyle(color: Colors.grey)),
-        );
-      }).toList(),
-      validator: (value) =>
-      value == null || value.isEmpty ? 'Please select a category' : null,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        DropdownButtonFormField<String>(
+          decoration: _buildInputDecoration('Category'),
+          value: null,
+          onChanged: (String? newValue) {
+            if (newValue != null && !selectedCategories.contains(newValue)) {
+              setState(() {
+                selectedCategories.add(newValue);
+              });
+            }
+          },
+          items: widget.categories.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value, style: const TextStyle(color: Colors.grey)),
+            );
+          }).toList(),
+        ),
+        const SizedBox(height: 10),
+        Wrap(
+          children: selectedCategories.map((String category) {
+            return Container(
+              margin: const EdgeInsets.only(right: 8),
+              child: Chip(
+                label: Text(category),
+                deleteIcon: const Icon(Icons.cancel),
+                onDeleted: () {
+                  setState(() {
+                    selectedCategories.remove(category);
+                  });
+                },
+              ),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 

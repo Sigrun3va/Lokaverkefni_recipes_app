@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 16.0, bottom: 10.0, top: 30.0),
+                  padding: EdgeInsets.only(left: 16.0, bottom: 10.0, top: 40.0),
                   child: Text(
                     'Categories',
                     style: TextStyle(
