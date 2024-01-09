@@ -10,6 +10,7 @@ class RecipeModel {
   final String instructions;
   final List<String> category;
   final String imagePath;
+  final bool isUserAdded;
 
   RecipeModel({
     required this.id,
@@ -19,6 +20,7 @@ class RecipeModel {
     required this.instructions,
     required this.category,
     required this.imagePath,
+    this.isUserAdded = false,
   });
 
   factory RecipeModel.fromMap(Map<String, dynamic> map) {
@@ -34,6 +36,7 @@ class RecipeModel {
           ? List<String>.from(jsonDecode(map['category']))
           : List<String>.from(map['category']),
       imagePath: map['imagePath'],
+      isUserAdded: map['isUserAdded'] == 1,
     );
   }
 
@@ -46,6 +49,7 @@ class RecipeModel {
       'instructions': instructions,
       'category': jsonEncode(category),
       'imagePath': imagePath,
+      'isUserAdded': isUserAdded ? 1 : 0,
     };
   }
 }
@@ -77,7 +81,13 @@ class RecipeDatabase {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(path, version: 2, onCreate: _createDB, onUpgrade: _onUpgrade);
+  }
+
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('ALTER TABLE recipes ADD COLUMN isUserAdded INTEGER DEFAULT 0');
+    }
   }
 
   Future _createDB(Database db, int version) async {
@@ -89,7 +99,8 @@ class RecipeDatabase {
       ingredients TEXT,
       instructions TEXT,
       category TEXT,
-      imagePath TEXT
+      imagePath TEXT,
+      isUserAdded INTEGER DEFAULT 0,
     )
   ''');
 
@@ -130,15 +141,6 @@ class RecipeDatabase {
     );
   }
 
-  Future<void> deleteRecipe(int id) async {
-    final db = await instance.database;
-    await db.delete(
-      'recipes',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  }
-
   Future<List<RecipeModel>> loadRecipes() async {
     final db = await instance.database;
     final result = await db.query('recipes');
@@ -157,7 +159,9 @@ class RecipeDatabase {
 
   Future<List<RecipeModel>> loadRecipesByCategory(String categoryName) async {
     final allRecipes = await loadRecipes();
-    return allRecipes.where((recipe) => recipe.category.contains(categoryName)).toList();
+    return allRecipes
+        .where((recipe) => recipe.category.contains(categoryName))
+        .toList();
   }
 
   Future<List<RecipeModel>> getChristmasRecipes() async {
@@ -171,17 +175,35 @@ class RecipeDatabase {
     return result.map((json) => RecipeModel.fromMap(json)).toList();
   }
 
-    Future<RecipeModel?> getRandomRecipe() async {
-      final db = await instance.database;
-      final result = await db.query(
-        'recipes',
-        orderBy: 'RANDOM()',
-        limit: 1,
-      );
-      if (result.isNotEmpty) {
-        return RecipeModel.fromMap(result.first);
-      }
-      return null;
+  Future<RecipeModel?> getRandomRecipe() async {
+    final db = await instance.database;
+    final result = await db.query(
+      'recipes',
+      orderBy: 'RANDOM()',
+      limit: 1,
+    );
+    if (result.isNotEmpty) {
+      return RecipeModel.fromMap(result.first);
     }
-
+    return null;
   }
+
+  Future<List<RecipeModel>> loadUserAddedRecipes() async {
+    final db = await instance.database;
+    final result = await db.query(
+      'recipes',
+      where: 'isUserAdded = ?',
+      whereArgs: [1],
+    );
+    return result.map((json) => RecipeModel.fromMap(json)).toList();
+  }
+
+  Future<void> deleteRecipe(String recipeId) async {
+    final db = await instance.database;
+    await db.delete(
+      'recipes',
+      where: 'id = ?',
+      whereArgs: [recipeId],
+    );
+  }
+}

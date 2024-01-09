@@ -17,7 +17,7 @@ class RecipeService {
     await _database.updateRecipe(updatedRecipe);
   }
 
-  Future<void> deleteRecipe(int recipeId) async {
+  Future<void> deleteRecipe(String recipeId) async {
     await _database.deleteRecipe(recipeId);
   }
 

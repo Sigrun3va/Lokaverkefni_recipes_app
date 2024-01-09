@@ -6,7 +6,6 @@ import 'package:recipes_app/database/recipe_database.dart';
 import 'package:recipes_app/database/recipe_service.dart';
 import 'package:recipes_app/screens/search/search_results_screen.dart';
 import 'dart:math';
-
 import 'package:recipes_app/screens/search/trending_recipes_screen.dart';
 
 class SearchScreen extends StatelessWidget {

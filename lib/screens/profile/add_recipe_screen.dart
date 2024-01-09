@@ -45,6 +45,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
           instructions: instructionsController.text,
           category: selectedCategories,
           imagePath: imagePath ?? defaultImagePath,
+          isUserAdded: true,
         );
 
         final recipeService = RecipeService();
