@@ -148,6 +148,14 @@ class _ProfileScreenState extends State<ProfileScreen>
   }
 
   Widget _buildMyRecipesTab() {
+    if (userAddedRecipes.isEmpty) {
+      return const Center(
+        child: Text(
+          'No recipes yet..',
+          style: TextStyle(color: Colors.grey, fontSize: 18),
+        ),
+      );
+    }
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
