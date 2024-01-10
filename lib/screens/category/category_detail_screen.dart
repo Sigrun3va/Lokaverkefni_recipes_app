@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:recipes_app/services/recipe_service.dart';
 import 'recipe_detail_screen.dart';
@@ -34,7 +35,9 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   }
 
   Widget loadImage(String imagePath) {
-    if (imagePath.startsWith('http') || imagePath.startsWith('https')) {
+    if (imagePath.isEmpty) {
+      return const Center(child: Icon(Icons.image, color: Colors.grey));
+    } else if (imagePath.startsWith('http') || imagePath.startsWith('https')) {
       return Image.network(
         imagePath,
         width: double.infinity,
@@ -48,7 +51,19 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
           return const Center(child: Text('Failed to load network image'));
         },
       );
+    } else if (!imagePath.startsWith('assets')) {
+      // Assuming it's a local file path
+      return Image.file(
+        File(imagePath),
+        width: double.infinity,
+        height: 200,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(child: Text('Failed to load file image'));
+        },
+      );
     } else {
+      // Asset image
       return Image.asset(
         imagePath,
         width: double.infinity,

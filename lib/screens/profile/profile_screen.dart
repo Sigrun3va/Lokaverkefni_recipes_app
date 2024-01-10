@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:recipes_app/screens/category/recipe_detail_screen.dart';
 import 'package:recipes_app/screens/home_screen.dart';
@@ -177,26 +178,42 @@ class _ProfileScreenState extends State<ProfileScreen>
   }
 
   Widget _recipeCard(RecipeModel recipe) {
-    Widget imageWidget = recipe.imagePath.startsWith('http') ||
-            recipe.imagePath.startsWith('https')
-        ? Image.network(
-            recipe.imagePath,
-            width: double.infinity,
-            height: 200,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return const Center(child: Text('Failed to load network image'));
-            },
-          )
-        : Image.asset(
-            recipe.imagePath,
-            width: double.infinity,
-            height: 200,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return const Center(child: Text('Failed to load asset image'));
-            },
-          );
+    Widget imageWidget;
+
+    // Check if imagePath is a network URL
+    if (recipe.imagePath.startsWith('http') || recipe.imagePath.startsWith('https')) {
+      imageWidget = Image.network(
+        recipe.imagePath,
+        width: double.infinity,
+        height: 200,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(child: Text('Failed to load network image'));
+        },
+      );
+    } else if (recipe.imagePath.startsWith('assets')) {
+      // If it's an asset
+      imageWidget = Image.asset(
+        recipe.imagePath,
+        width: double.infinity,
+        height: 200,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(child: Text('Failed to load asset image'));
+        },
+      );
+    } else {
+      // Assuming it's a local file path
+      imageWidget = Image.file(
+        File(recipe.imagePath),
+        width: double.infinity,
+        height: 200,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(child: Text('Failed to load file image'));
+        },
+      );
+    }
 
     return GestureDetector(
       onTap: () {

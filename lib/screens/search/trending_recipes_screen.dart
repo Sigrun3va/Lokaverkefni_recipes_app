@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:recipes_app/model/recipe_model.dart';
 import 'package:recipes_app/screens/category/recipe_detail_screen.dart';
@@ -6,6 +7,33 @@ class TrendingRecipesScreen extends StatelessWidget {
   final List<RecipeModel> trendingRecipes;
 
   const TrendingRecipesScreen({Key? key, required this.trendingRecipes}) : super(key: key);
+
+  Widget _buildImageWidget(String imagePath) {
+    if (imagePath.isEmpty) {
+      return const Icon(Icons.fastfood, color: Colors.white, size: 50);
+    } else if (imagePath.startsWith('http') || imagePath.startsWith('https')) {
+      return Image.network(
+        imagePath,
+        width: 100,
+        height: 150,
+        fit: BoxFit.cover,
+      );
+    } else if (imagePath.startsWith('assets')) {
+      return Image.asset(
+        imagePath,
+        width: 100,
+        height: 150,
+        fit: BoxFit.cover,
+      );
+    } else {
+      return Image.file(
+        File(imagePath),
+        width: 100,
+        height: 150,
+        fit: BoxFit.cover,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +57,7 @@ class TrendingRecipesScreen extends StatelessWidget {
           return Card(
             color: const Color(0xFF1C1C1C),
             child: ListTile(
-              leading: recipe.imagePath.isNotEmpty
-                  ? Image.asset(
-                recipe.imagePath,
-                width: 100,
-                height: 150,
-                fit: BoxFit.cover,
-              )
-                  : const Icon(Icons.fastfood, color: Colors.white),
+              leading: _buildImageWidget(recipe.imagePath),
               title: Text(
                 '${index + 1}. ${recipe.name}',
                 style: const TextStyle(color: Colors.white),

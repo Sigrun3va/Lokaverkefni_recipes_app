@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:recipes_app/model/recipe_model.dart';
 
@@ -5,6 +6,31 @@ class RecipeDetailsScreen extends StatelessWidget {
   final RecipeModel recipe;
 
   const RecipeDetailsScreen({super.key, required this.recipe});
+
+  Widget _buildImageWidget(String imagePath) {
+    if (imagePath.startsWith('http') || imagePath.startsWith('https')) {
+      return Image.network(
+        imagePath,
+        width: double.infinity,
+        height: 300,
+        fit: BoxFit.cover,
+      );
+    } else if (imagePath.startsWith('assets')) {
+      return Image.asset(
+        imagePath,
+        width: double.infinity,
+        height: 300,
+        fit: BoxFit.cover,
+      );
+    } else {
+      return Image.file(
+        File(imagePath),
+        width: double.infinity,
+        height: 300,
+        fit: BoxFit.cover,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +48,7 @@ class RecipeDetailsScreen extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                recipe.imagePath,
-                width: double.infinity,
-                height: 300,
-                fit: BoxFit.cover,
-              ),
+              child: _buildImageWidget(recipe.imagePath),
             ),
             const SizedBox(height: 1.0),
             Container(
