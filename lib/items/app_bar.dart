@@ -5,10 +5,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function()? onBackTap;
 
   const CustomAppBar({
-    Key? key,
+    super.key,
     required this.title,
     this.onBackTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

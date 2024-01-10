@@ -11,7 +11,7 @@ class TrendingRecipesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Rising Star Bakes'),
+        title: const Text('Rising Star Bakes', style: TextStyle(color: Colors.white),),
         backgroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,

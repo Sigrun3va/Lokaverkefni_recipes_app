@@ -6,10 +6,10 @@ class CategorySection extends StatelessWidget {
   final Function(String, int?) onCategorySelected;
 
   const CategorySection({
-    Key? key,
+    super.key,
     required this.categories,
     required this.onCategorySelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:recipes_app/model/recipe_model.dart';
 class RecipeItem extends StatelessWidget {
   final RecipeModel recipe;
 
-  const RecipeItem({Key? key, required this.recipe}) : super(key: key);
+  const RecipeItem({super.key, required this.recipe});
 
   @override
   Widget build(BuildContext context) {

@@ -10,10 +10,10 @@ class CategoryDetailScreen extends StatefulWidget {
   final int categoryImageIndex;
 
   const CategoryDetailScreen({
-    Key? key,
+    super.key,
     required this.categoryName,
     required this.categoryImageIndex,
-  }) : super(key: key);
+  });
 
   @override
   _CategoryDetailScreenState createState() => _CategoryDetailScreenState();

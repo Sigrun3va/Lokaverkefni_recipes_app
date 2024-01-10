@@ -5,7 +5,7 @@ import 'package:recipes_app/model/recipe_model.dart';
 
 
 class RecipeScreen extends StatelessWidget {
-  const RecipeScreen({Key? key}) : super(key: key);
+  const RecipeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class RecipeScreen extends StatelessWidget {
 class RecipeItem extends StatelessWidget {
   final RecipeModel recipe;
 
-  const RecipeItem({Key? key, required this.recipe}) : super(key: key);
+  const RecipeItem({super.key, required this.recipe});
 
   @override
   Widget build(BuildContext context) {
