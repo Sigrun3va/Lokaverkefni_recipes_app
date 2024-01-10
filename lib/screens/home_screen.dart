@@ -7,12 +7,11 @@ import 'package:recipes_app/model/recipe_model.dart';
 import 'package:recipes_app/screens/christmas/recipes_screen.dart';
 import 'package:recipes_app/screens/profile/add_recipe_screen.dart';
 import 'package:recipes_app/screens/profile/profile_screen.dart';
-import 'dart:math';
 import 'package:recipes_app/screens/search/search_screen.dart';
 import 'category/category_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -47,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void selectBakesOfTheDay() {
-    final random = Random();
     if (recipes.isNotEmpty) {
       bakesOfTheDay =
           (List<RecipeModel>.from(recipes)..shuffle()).take(5).toList();
@@ -176,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         AddRecipeScreen(categories: categories)));
               },
               backgroundColor: CupertinoColors.tertiarySystemFill,
-              child: const Icon(Icons.add, size: 40),
+              child: const Icon(Icons.add, size: 40, color: Colors.white,),
             ),
           ),
         ],

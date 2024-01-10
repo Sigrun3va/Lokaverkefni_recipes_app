@@ -7,7 +7,7 @@ import 'dart:io';
 class AddRecipeScreen extends StatefulWidget {
   final List<String> categories;
 
-  const AddRecipeScreen({Key? key, required this.categories}) : super(key: key);
+  const AddRecipeScreen({super.key, required this.categories});
 
   @override
   _AddRecipeScreenState createState() => _AddRecipeScreenState();
@@ -86,7 +86,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         Expanded(
           child: TextFormField(
             controller: ingredientController,
-            decoration: _buildInputDecoration('Ingredients'),
+            decoration: _buildInputDecoration('Ingredients..'),
             style: const TextStyle(color: Colors.grey),
           ),
         ),
@@ -106,27 +106,54 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter an ingredient before adding')),
+        const SnackBar(content: Text('Please enter an ingredient before uploading')),
       );
     }
   }
 
   Widget _buildAddPhotoButton() {
-    return InkWell(
-      onTap: _addPhoto,
-      child: Container(
-        height: 150,
-        decoration: BoxDecoration(
-          color: Colors.grey[800],
-          borderRadius: BorderRadius.circular(10),
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+        InkWell(
+          onTap: _addPhoto,
+          child: Container(
+            height: 150,
+            decoration: BoxDecoration(
+              color: Colors.grey[800],
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: imagePath == null
+                ? const Center(
+              child: Icon(Icons.add_a_photo, color: Colors.white, size: 50),
+            )
+                : Image.file(File(imagePath!), fit: BoxFit.cover),
+          ),
         ),
-        child: imagePath == null
-            ? const Center(
-                child: Icon(Icons.add_a_photo, color: Colors.white, size: 50),
-              )
-            : Image.file(File(imagePath!), fit: BoxFit.cover),
-      ),
+        // Delete button
+        if (imagePath != null)
+          Positioned(
+            top: 5,
+            right: 5,
+            child: InkWell(
+              onTap: _deletePhoto,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.black54,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.cancel, color: Colors.deepOrange),
+              ),
+            ),
+          ),
+      ],
     );
+  }
+
+  Future<void> _deletePhoto() async {
+    setState(() {
+      imagePath = null;
+    });
   }
 
   Future<void> _addPhoto() async {
@@ -140,10 +167,10 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         });
       } else {
 
-        print('Image picking was cancelled.');
+        print('Image picking cancelled.');
       }
     } catch (e) {
-      
+
       print('An error occurred while picking the image: $e');
     }
   }
@@ -192,7 +219,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         DropdownButtonFormField<String>(
-          decoration: _buildInputDecoration('Category'),
+          decoration: _buildInputDecoration('Category..'),
           value: null,
           onChanged: (String? newValue) {
             if (newValue != null && !selectedCategories.contains(newValue)) {
@@ -263,14 +290,14 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
               children: <Widget>[
                 _buildAddPhotoButton(),
                 const SizedBox(height: 20),
-                _buildTextField(nameController, 'Title'),
-                _buildTextField(descriptionController, 'Description',
+                _buildTextField(nameController, 'Title..'),
+                _buildTextField(descriptionController, 'Description..',
                     maxLines: 7),
                 _buildIngredientInput(),
                 _buildIngredientList(),
                 const SizedBox(height: 20),
-                _buildTextField(instructionsController, 'Instructions',
-                    maxLines: 15),
+                _buildTextField(instructionsController, 'Instructions..',
+                    maxLines: 8),
                 _buildCategoryDropdown(),
                 const SizedBox(height: 30),
                 _buildSubmitButton(),

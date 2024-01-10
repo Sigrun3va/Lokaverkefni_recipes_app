@@ -9,7 +9,7 @@ import 'package:recipes_app/model/recipe_model.dart';
 
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -73,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen>
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('My Profile'),
+          title: const Text('My Profile', style: TextStyle(color: Colors.white),),
           backgroundColor: Colors.black,
           actions: [
             IconButton(
@@ -94,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen>
         body: Column(
           children: [
             _buildUserProfile(),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
             TabBar(
               controller: _tabController,
               tabs: const [
@@ -129,7 +129,7 @@ class _ProfileScreenState extends State<ProfileScreen>
 
   Widget _buildUserProfile() {
     return const Padding(
-      padding: EdgeInsets.only(left: 16.0),
+      padding: EdgeInsets.only(left: 16.0, top: 14.0),
       child: Row(
         children: [
           CircleAvatar(

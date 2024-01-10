@@ -7,9 +7,9 @@ class BakesOfTheDaySection extends StatelessWidget {
   final List<RecipeModel> bakesOfTheDay;
 
   const BakesOfTheDaySection({
-    Key? key,
+    super.key,
     required this.bakesOfTheDay,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

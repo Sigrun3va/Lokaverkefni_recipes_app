@@ -14,9 +14,13 @@ class RecipeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('12 Recipes for Christmas'),
+        title: const Text(
+          '12 Recipes for Christmas',
+          style: TextStyle(color: Colors.white),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
+          color: Colors.white,
           onPressed: () => Navigator.pop(context),
         ),
       ),
