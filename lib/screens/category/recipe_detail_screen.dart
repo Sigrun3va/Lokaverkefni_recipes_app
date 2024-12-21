@@ -7,37 +7,70 @@ class RecipeDetailsScreen extends StatelessWidget {
 
   const RecipeDetailsScreen({super.key, required this.recipe});
 
-  Widget _buildImageWidget(String imagePath) {
-    if (imagePath.startsWith('http') || imagePath.startsWith('https')) {
-      return Image.network(
-        imagePath,
-        width: double.infinity,
-        height: 300,
-        fit: BoxFit.cover,
-      );
-    } else if (imagePath.startsWith('assets')) {
-      return Image.asset(
-        imagePath,
-        width: double.infinity,
-        height: 300,
-        fit: BoxFit.cover,
-      );
-    } else {
-      return Image.file(
-        File(imagePath),
-        width: double.infinity,
-        height: 300,
-        fit: BoxFit.cover,
-      );
-    }
+  Widget _buildImageWidget(String? imagePath) {
+  if (imagePath == null || imagePath.isEmpty) {
+    return Image.asset(
+      'assets/images/comingsoon.jpg',
+      width: double.infinity,
+      height: 300,
+      fit: BoxFit.cover,
+    );
+  } else if (imagePath.startsWith('http') || imagePath.startsWith('https')) {
+    return Image.network(
+      imagePath,
+      width: double.infinity,
+      height: 300,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) {
+        return Image.asset(
+          'assets/images/comingsoon.jpg',
+          width: double.infinity,
+          height: 300,
+          fit: BoxFit.cover,
+        );
+      },
+    );
+  } else if (imagePath.startsWith('assets')) {
+    return Image.asset(
+      imagePath,
+      width: double.infinity,
+      height: 300,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) {
+        return Image.asset(
+          'assets/images/comingsoon.jpg',
+          width: double.infinity,
+          height: 300,
+          fit: BoxFit.cover,
+        );
+      },
+    );
+  } else {
+    return Image.file(
+      File(imagePath),
+      width: double.infinity,
+      height: 300,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) {
+        return Image.asset(
+          'assets/images/comingsoon.jpg',
+          width: double.infinity,
+          height: 300,
+          fit: BoxFit.cover,
+        );
+      },
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text(recipe.name,
+        title: Text(
+          recipe.name,
           style: const TextStyle(color: Colors.white70),
         ),
         backgroundColor: Colors.black,
@@ -52,7 +85,7 @@ class RecipeDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 1.0),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical:  25.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 25.0),
               decoration: BoxDecoration(
                 color: const Color(0xFF181818),
                 borderRadius: BorderRadius.circular(12),

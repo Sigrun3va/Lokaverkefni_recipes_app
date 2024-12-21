@@ -205,65 +205,68 @@ class _ProfileScreenState extends State<ProfileScreen>
   }
 
   Widget _recipeCard(RecipeModel recipe) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => AddRecipeScreen(
-              categories: [],
-              recipe: recipe,
-            ),
+  return GestureDetector(
+    onTap: () {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => AddRecipeScreen(
+            categories: [],
+            recipe: recipe,
           ),
-        );
-      },
-      child: Card(
-        color: const Color(0xFF181818),
-        child: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: recipe.imagePath.startsWith('http')
-                      ? Image.network(
-                          recipe.imagePath,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              const Icon(Icons.error, color: Colors.red),
-                        )
-                      : Image.file(
-                          File(recipe.imagePath),
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              const Icon(Icons.error, color: Colors.red),
-                        ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text(
-                    recipe.name,
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
-            Positioned(
-              top: 10,
-              right: 10,
-              child: CircleAvatar(
-                backgroundColor: Colors.deepOrange,
-                child: IconButton(
-                  icon: const Icon(Icons.close, color: Colors.white),
-                  onPressed: () => _deleteRecipe(recipe.id.toString()),
+        ),
+      );
+    },
+    child: Card(
+      color: const Color(0xFF181818),
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: recipe.imagePath.isEmpty || !Uri.parse(recipe.imagePath).isAbsolute
+                    ? Image.asset(
+                        'assets/images/comingsoon.jpg',
+                        fit: BoxFit.cover,
+                      )
+                    : Image.network(
+                        recipe.imagePath,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'assets/images/comingsoon.jpg',
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text(
+                  recipe.name,
+                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                  textAlign: TextAlign.center,
                 ),
               ),
+            ],
+          ),
+          Positioned(
+            top: 10,
+            right: 10,
+            child: CircleAvatar(
+              backgroundColor: Colors.deepOrange,
+              child: IconButton(
+                icon: const Icon(Icons.close, color: Colors.white),
+                onPressed: () => _deleteRecipe(recipe.id.toString()),
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   void _navigateToScreen(int index, BuildContext context, int currentIndex) {
     if (index == currentIndex) return;
