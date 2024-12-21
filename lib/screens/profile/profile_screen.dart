@@ -75,10 +75,19 @@ class _ProfileScreenState extends State<ProfileScreen>
   );
 
   if (confirm) {
-    await RecipeService().deleteRecipe(recipeId);
-    setState(() {
-      userAddedRecipes.removeWhere((recipe) => recipe.id.toString() == recipeId);
-    });
+    try {
+      await RecipeService().deleteRecipe(recipeId);
+      setState(() {
+        userAddedRecipes.removeWhere((recipe) => recipe.id.toString() == recipeId);
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Recipe deleted successfully!')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to delete recipe: $e')),
+      );
+    }
   }
 }
 

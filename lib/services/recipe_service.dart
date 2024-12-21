@@ -58,16 +58,19 @@ class RecipeService {
   }
 
   Future<void> deleteRecipe(String recipeId) async {
-    try {
-      final response = await http.delete(Uri.parse('$_baseUrl/$recipeId'));
+  try {
+    final response = await http.delete(
+      Uri.parse('http://localhost:5045/api/recipes/$recipeId'),
+    );
 
-      if (response.statusCode != 200) {
-        throw Exception('Failed to delete recipe: ${response.reasonPhrase}');
-      }
-    } catch (e) {
-      throw Exception('Error deleting recipe: $e');
+    if (response.statusCode != 200) {
+      throw Exception('Failed to delete recipe: ${response.reasonPhrase}');
     }
+  } catch (e) {
+    throw Exception('Error deleting recipe: $e');
   }
+}
+
 
   Future<List<RecipeModel>> loadRecipesByCategory(String category) async {
     try {
