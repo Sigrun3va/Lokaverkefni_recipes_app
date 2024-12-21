@@ -14,72 +14,157 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   bool _isLoading = false;
 
-void _login() async {
-  setState(() {
-    _isLoading = true;
-  });
+  void _login() async {
+    setState(() {
+      _isLoading = true;
+    });
 
-  final success = await AuthService.login(
-    _emailController.text,
-    _passwordController.text,
-  );
+    try {
+      final success = await AuthService.login(
+        _emailController.text,
+        _passwordController.text,
+      );
 
-  setState(() {
-    _isLoading = false;
-  });
+      if (success) {
+        Navigator.pushReplacementNamed(context, '/home');
+      } else {
+        _showSnackBar('Invalid email or password');
+      }
+    } catch (e) {
+      _showSnackBar('Error connecting to the server');
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
-  if (success) {
-    Navigator.pushReplacementNamed(context, '/home');
-  } else {
+  void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Invalid email or password')),
+      SnackBar(content: Text(message)),
     );
   }
-}
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: const Text('Login'),
-    ),
-    body: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
         children: [
-          TextField(
-            controller: _emailController,
-            decoration: const InputDecoration(labelText: 'Email'),
+          Image.asset(
+            'assets/images/bakingbg.jpg', 
+            fit: BoxFit.cover,
           ),
-          const SizedBox(height: 16),
-          TextField(
-            controller: _passwordController,
-            decoration: const InputDecoration(labelText: 'Password'),
-            obscureText: true,
+          Container(
+            color: Colors.black.withOpacity(0.5), 
           ),
-          const SizedBox(height: 16),
-          _isLoading
-              ? const CircularProgressIndicator()
-              : ElevatedButton(
-                  onPressed: _login,
-                  child: const Text('Login'),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text(
+                      'Start Baking!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'HedvigLetterSerif',
+                        fontSize: 28,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    TextField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        labelStyle: const TextStyle(color: Colors.white),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        filled: true,
+                        fillColor: const Color(0xFF2C2C2C),
+                        prefixIcon: const Icon(Icons.email, color: Colors.white),
+                      ),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 20),
+                    TextField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        labelStyle: const TextStyle(color: Colors.white),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        filled: true,
+                        fillColor: const Color(0xFF2C2C2C),
+                        prefixIcon: const Icon(Icons.lock, color: Colors.white),
+                      ),
+                      obscureText: true,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 20),
+                    _isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : GestureDetector(
+                            onTap: _login,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [Colors.orange, Colors.deepOrange],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
+                                borderRadius: BorderRadius.circular(50.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    blurRadius: 8.0,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 15,
+                              ),
+                              alignment: Alignment.center,
+                              child: const Text(
+                                'Login',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                    const SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RegisterScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Don’t have an account? Register here!',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
                 ),
-          const SizedBox(height: 16),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const RegisterScreen()),
-              );
-            },
-            child: const Text('Don’t have an account? Register here!'),
+              ),
+            ),
           ),
         ],
       ),
-    ),
-  );
-}
+    );
+  }
 
   @override
   void dispose() {
