@@ -6,29 +6,51 @@ import 'dart:io';
 
 class AddRecipeScreen extends StatefulWidget {
   final List<String> categories;
+  final RecipeModel? recipe;
 
-  const AddRecipeScreen({super.key, required this.categories});
+  const AddRecipeScreen({
+    Key? key,
+    required this.categories,
+    this.recipe,
+  }) : super(key: key);
 
   @override
   _AddRecipeScreenState createState() => _AddRecipeScreenState();
 }
 
 class _AddRecipeScreenState extends State<AddRecipeScreen> {
-  List<String> ingredients = [];
-  final ingredientController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final descriptionController = TextEditingController();
-  final ingredientsController = TextEditingController();
   final instructionsController = TextEditingController();
+  final ingredientController = TextEditingController();
+  List<String> ingredients = [];
   List<String> selectedCategories = [];
   String? imagePath;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.recipe != null) {
+      _initializeForEdit();
+    }
+  }
+
+  void _initializeForEdit() {
+    final recipe = widget.recipe!;
+    nameController.text = recipe.name;
+    descriptionController.text = recipe.description;
+    ingredients = recipe.ingredients;
+    instructionsController.text = recipe.instructions;
+    selectedCategories = recipe.category;
+    imagePath = recipe.imagePath;
+  }
 
   @override
   void dispose() {
     nameController.dispose();
     descriptionController.dispose();
-    ingredientsController.dispose();
+    ingredientController.dispose();
     instructionsController.dispose();
     super.dispose();
   }
@@ -36,24 +58,31 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   Future<void> _submitRecipe() async {
     if (_formKey.currentState!.validate() && ingredients.isNotEmpty) {
       try {
-        String defaultImagePath = 'assets/images/comingsoon.jpg';
+        final recipeService = RecipeService();
+
         RecipeModel newRecipe = RecipeModel(
-          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          id: widget.recipe?.id ?? DateTime.now().millisecondsSinceEpoch,
           name: nameController.text,
           description: descriptionController.text,
           ingredients: ingredients,
           instructions: instructionsController.text,
           category: selectedCategories,
-          imagePath: imagePath ?? defaultImagePath,
+          imagePath: imagePath ?? 'assets/images/comingsoon.jpg',
           isUserAdded: true,
         );
 
-        final recipeService = RecipeService();
-        await recipeService.writeRecipe(newRecipe);
+        if (widget.recipe != null) {
+          await recipeService.updateRecipe(newRecipe);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Recipe updated successfully!')),
+          );
+        } else {
+          await recipeService.writeRecipe(newRecipe);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Recipe added successfully!')),
+          );
+        }
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Recipe added successfully!')),
-        );
         Navigator.pop(context);
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -62,116 +91,28 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill all required fields and add at least one ingredient')),
+        const SnackBar(content: Text('Please fill all fields and add at least one ingredient')),
       );
     }
-  }
-
-  InputDecoration _buildInputDecoration(String label) {
-    return InputDecoration(
-      labelText: label,
-      labelStyle: const TextStyle(color: Colors.grey),
-      fillColor: Colors.black,
-      filled: true,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: Colors.grey),
-      ),
-    );
-  }
-
-  Widget _buildIngredientInput() {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: TextFormField(
-            controller: ingredientController,
-            decoration: _buildInputDecoration('Ingredients..'),
-            style: const TextStyle(color: Colors.grey),
-          ),
-        ),
-        IconButton(
-          icon: const Icon(Icons.add, color: Colors.white),
-          onPressed: _addIngredient,
-        ),
-      ],
-    );
   }
 
   void _addIngredient() {
     if (ingredientController.text.isNotEmpty) {
-      setState(() {
-        ingredients.add(ingredientController.text);
-        ingredientController.clear();
-      });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter an ingredient before uploading')),
-      );
-    }
-  }
-
-  Widget _buildAddPhotoButton() {
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        InkWell(
-          onTap: _addPhoto,
-          child: Container(
-            height: 150,
-            decoration: BoxDecoration(
-              color: Colors.grey[800],
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: imagePath == null
-                ? const Center(
-              child: Icon(Icons.add_a_photo, color: Colors.white, size: 50),
-            )
-                : Image.file(File(imagePath!), fit: BoxFit.cover),
-          ),
-        ),
-        // Delete button
-        if (imagePath != null)
-          Positioned(
-            top: 5,
-            right: 5,
-            child: InkWell(
-              onTap: _deletePhoto,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.black54,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.cancel, color: Colors.deepOrange),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-
-  Future<void> _deletePhoto() async {
-    setState(() {
-      imagePath = null;
-    });
-  }
-
-  Future<void> _addPhoto() async {
-    try {
-      final ImagePicker _picker = ImagePicker();
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-      if (image != null) {
+      final ingredient = ingredientController.text.trim();
+      if (!ingredients.contains(ingredient)) {
         setState(() {
-          imagePath = image.path;
+          ingredients.add(ingredient);
+          ingredientController.clear();
         });
       } else {
-
-        print('Image picking cancelled.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Ingredient already added')),
+        );
       }
-    } catch (e) {
-
-      print('An error occurred while picking the image: $e');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter an ingredient')),
+      );
     }
   }
 
@@ -186,89 +127,52 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
             style: const TextStyle(color: Colors.white),
           ),
           trailing: IconButton(
-            icon: const Icon(Icons.delete, color: Colors.deepOrange),
-            onPressed: () => _removeIngredient(index),
+            icon: const Icon(Icons.delete, color: Colors.red),
+            onPressed: () {
+              setState(() {
+                ingredients.removeAt(index);
+              });
+            },
           ),
         );
       },
     );
   }
 
-  void _removeIngredient(int index) {
-    setState(() {
-      ingredients.removeAt(index);
-    });
+  Future<void> _addPhoto() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+      if (image != null) {
+        setState(() {
+          imagePath = image.path;
+        });
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+    }
   }
 
-  Widget _buildTextField(TextEditingController controller, String label,
-      {int maxLines = 1}) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      child: TextFormField(
-        controller: controller,
-        maxLines: maxLines,
-        style: const TextStyle(color: Colors.grey),
-        decoration: _buildInputDecoration(label),
-        validator: (value) => value!.isEmpty ? 'Please enter $label' : null,
-      ),
-    );
-  }
-
-  Widget _buildCategoryDropdown() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        DropdownButtonFormField<String>(
-          decoration: _buildInputDecoration('Category..'),
-          value: null,
-          onChanged: (String? newValue) {
-            if (newValue != null && !selectedCategories.contains(newValue)) {
-              setState(() {
-                selectedCategories.add(newValue);
-              });
-            }
-          },
-          items: widget.categories.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value, style: const TextStyle(color: Colors.grey)),
-            );
-          }).toList(),
+  Widget _buildAddPhotoButton() {
+    return InkWell(
+      onTap: _addPhoto,
+      child: Container(
+        height: 150,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.grey[800],
+          borderRadius: BorderRadius.circular(10),
         ),
-        const SizedBox(height: 10),
-        Wrap(
-          children: selectedCategories.map((String category) {
-            return Container(
-              margin: const EdgeInsets.only(right: 8),
-              child: Chip(
-                label: Text(category),
-                deleteIcon: const Icon(Icons.cancel),
-                onDeleted: () {
-                  setState(() {
-                    selectedCategories.remove(category);
-                  });
-                },
+        child: imagePath == null
+            ? const Center(
+                child: Icon(Icons.add_a_photo, color: Colors.white, size: 50),
+              )
+            : ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.file(File(imagePath!), fit: BoxFit.cover),
               ),
-            );
-          }).toList(),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSubmitButton() {
-    return ElevatedButton(
-      onPressed: () {
-        _submitRecipe();
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF181818),
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
       ),
-      child: const Text('Upload Recipe'),
     );
   }
 
@@ -276,36 +180,130 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create A New Recipe',
-            style: TextStyle(color: Colors.white)),
+        title: const Text('Add Recipe', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 30.0, 16.0, 16.0),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                _buildAddPhotoButton(),
-                const SizedBox(height: 20),
-                _buildTextField(nameController, 'Title..'),
-                _buildTextField(descriptionController, 'Description..',
-                    maxLines: 7),
-                _buildIngredientInput(),
-                _buildIngredientList(),
-                const SizedBox(height: 20),
-                _buildTextField(instructionsController, 'Instructions..',
-                    maxLines: 8),
-                _buildCategoryDropdown(),
-                const SizedBox(height: 30),
-                _buildSubmitButton(),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildAddPhotoButton(),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  labelText: 'Title',
+                  fillColor: Colors.black,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                style: const TextStyle(color: Colors.grey),
+                validator: (value) => value == null || value.isEmpty ? 'Please enter a title' : null,
+              ),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: descriptionController,
+                maxLines: 3,
+                decoration: InputDecoration(
+                  labelText: 'Description',
+                  fillColor: Colors.black,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                style: const TextStyle(color: Colors.grey),
+                validator: (value) => value == null || value.isEmpty ? 'Please enter a description' : null,
+              ),
+              const SizedBox(height: 20),
+              _buildIngredientInput(),
+              const SizedBox(height: 10),
+              _buildIngredientList(),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: instructionsController,
+                maxLines: 6,
+                decoration: InputDecoration(
+                  labelText: 'Instructions',
+                  fillColor: Colors.black,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                style: const TextStyle(color: Colors.grey),
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Please enter instructions' : null,
+              ),
+              const SizedBox(height: 20),
+              DropdownButtonFormField<String>(
+                decoration: InputDecoration(
+                  labelText: 'Category',
+                  fillColor: Colors.black,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                value: selectedCategories.isNotEmpty ? selectedCategories.first : null,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedCategories = [newValue ?? ''];
+                  });
+                },
+                items: widget.categories
+                    .map((category) => DropdownMenuItem<String>(
+                          value: category,
+                          child: Text(category),
+                        ))
+                    .toList(),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _submitRecipe,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                child: const Text('Upload Recipe'),
+              ),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildIngredientInput() {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: TextFormField(
+            controller: ingredientController,
+            decoration: InputDecoration(
+              labelText: 'Ingredient',
+              fillColor: Colors.black,
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            style: const TextStyle(color: Colors.grey),
+          ),
+        ),
+        IconButton(
+          icon: const Icon(Icons.add, color: Colors.white),
+          onPressed: _addIngredient,
+        ),
+      ],
     );
   }
 }

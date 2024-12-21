@@ -1,58 +1,101 @@
 import 'dart:convert';
-import 'package:flutter/services.dart';
-import 'package:recipes_app/services/recipe_database.dart';
+import 'package:http/http.dart' as http;
 import 'package:recipes_app/model/recipe_model.dart';
 
 class RecipeService {
-  final RecipeDatabase _database = RecipeDatabase.instance;
-
+  static const String _baseUrl = 'http://localhost:5045/api/recipes';
 
   Future<List<RecipeModel>> loadRecipes() async {
-    return await _database.loadRecipes();
+    try {
+      final response = await http.get(Uri.parse(_baseUrl));
+
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        return data.map((json) => RecipeModel.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to load recipes: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      throw Exception('Error loading recipes: $e');
+    }
   }
 
   Future<void> writeRecipe(RecipeModel newRecipe) async {
-    await _database.insertRecipe(newRecipe);
+  try {
+    final jsonBody = jsonEncode(newRecipe.toJson());
+    print('Request body: $jsonBody'); 
+    final response = await http.post(
+      Uri.parse(_baseUrl),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonBody,
+    );
+
+    if (response.statusCode != 200) {
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      throw Exception('Failed to add recipe: ${response.reasonPhrase}');
+    }
+  } catch (e) {
+    print('Error: $e');
+    throw Exception('Error adding recipe: $e');
   }
+}
 
   Future<void> updateRecipe(RecipeModel updatedRecipe) async {
-    await _database.updateRecipe(updatedRecipe);
+    try {
+      final response = await http.put(
+        Uri.parse('$_baseUrl/${updatedRecipe.id}'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(updatedRecipe.toJson()),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to update recipe: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      throw Exception('Error updating recipe: $e');
+    }
   }
 
   Future<void> deleteRecipe(String recipeId) async {
-    await _database.deleteRecipe(recipeId);
+    try {
+      final response = await http.delete(Uri.parse('$_baseUrl/$recipeId'));
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to delete recipe: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      throw Exception('Error deleting recipe: $e');
+    }
   }
 
   Future<List<RecipeModel>> loadRecipesByCategory(String category) async {
-    return await _database.loadRecipesByCategory(category);
+    try {
+      final response = await http.get(Uri.parse('$_baseUrl?category=$category'));
+
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        return data.map((json) => RecipeModel.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to load recipes by category: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      throw Exception('Error loading recipes by category: $e');
+    }
   }
 
   Future<List<RecipeModel>> searchRecipes(String query) async {
-    return await _database.searchRecipes(query);
-  }
+    try {
+      final response = await http.get(Uri.parse('$_baseUrl?search=$query'));
 
-  Future<List<RecipeModel>> getChristmasRecipes() async {
-    final db = await _database.database;
-    final result = await db.rawQuery('''
-    SELECT DISTINCT recipes.*
-    FROM recipes
-    WHERE recipes.category LIKE '%Christmas%'
-    LIMIT 12
-  ''');
-    return result.map((json) => RecipeModel.fromMap(json)).toList();
-  }
-
-  Future<RecipeModel?> getRandomRecipe() async {
-    return await _database.getRandomRecipe();
-  }
-
-  Future<void> addRecipesFromJson() async {
-    final jsonString = await rootBundle.loadString('assets/database/recipes.json');
-    final List<dynamic> jsonData = jsonDecode(jsonString);
-    List<RecipeModel> recipes = jsonData.map((json) => RecipeModel.fromMap(json)).toList();
-
-    for (var recipe in recipes) {
-      await _database.insertRecipe(recipe);
+      if (response.statusCode == 200) {
+        List<dynamic> data = jsonDecode(response.body);
+        return data.map((json) => RecipeModel.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to search recipes: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      throw Exception('Error searching recipes: $e');
     }
   }
 }

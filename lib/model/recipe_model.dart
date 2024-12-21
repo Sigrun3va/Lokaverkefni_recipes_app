@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class RecipeModel {
-  final String id;
+  final int id;
   final String name;
   final String description;
   final List<String> ingredients;
@@ -21,32 +21,29 @@ class RecipeModel {
     this.isUserAdded = false,
   });
 
-  factory RecipeModel.fromMap(Map<String, dynamic> map) {
-    return RecipeModel(
-      id: map['id'] ?? '',
-      name: map['name'],
-      description: map['description'],
-      ingredients: map['ingredients'] is String
-          ? List<String>.from(jsonDecode(map['ingredients']))
-          : List<String>.from(map['ingredients']),
-      instructions: map['instructions'],
-      category: map['category'] is String
-          ? List<String>.from(jsonDecode(map['category']))
-          : List<String>.from(map['category']),
-      imagePath: map['imagePath'],
-      isUserAdded: map['isUserAdded'] == 1,
-    );
-  }
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
       'description': description,
-      'ingredients': jsonEncode(ingredients),
+      'ingredients': ingredients.join(', '),
       'instructions': instructions,
-      'category': jsonEncode(category),
+      'category': category.join(', '),
       'imagePath': imagePath,
-      'isUserAdded': isUserAdded ? 1 : 0,
+      'isUserAdded': isUserAdded,
     };
+  }
+
+factory RecipeModel.fromJson(Map<String, dynamic> json) {
+    return RecipeModel(
+      id: json['id'], 
+      name: json['name'],
+      description: json['description'],
+      ingredients: List<String>.from(json['ingredients']),
+      instructions: json['instructions'],
+      category: List<String>.from(json['category']),
+      imagePath: json['imagePath'],
+      isUserAdded: json['isUserAdded'],
+    );
   }
 }
