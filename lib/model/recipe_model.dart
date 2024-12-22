@@ -23,27 +23,30 @@ class RecipeModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'name': name,
       'description': description,
-      'ingredients': ingredients.join(', '),
+      'ingredientsJson': jsonEncode(ingredients),
+      'categoryJson': jsonEncode(category),
       'instructions': instructions,
-      'category': category.join(', '),
       'imagePath': imagePath,
       'isUserAdded': isUserAdded,
     };
   }
 
-factory RecipeModel.fromJson(Map<String, dynamic> json) {
-    return RecipeModel(
-      id: json['id'], 
-      name: json['name'],
-      description: json['description'],
-      ingredients: List<String>.from(json['ingredients']),
-      instructions: json['instructions'],
-      category: List<String>.from(json['category']),
-      imagePath: json['imagePath'],
-      isUserAdded: json['isUserAdded'],
-    );
-  }
+ factory RecipeModel.fromJson(Map<String, dynamic> json) {
+  return RecipeModel(
+    id: json['id'],
+    name: json['name'],
+    description: json['description'],
+    ingredients: json['ingredientsJson'] != null
+        ? List<String>.from(jsonDecode(json['ingredientsJson']))
+        : [],
+    instructions: json['instructions'],
+    category: json['categoryJson'] != null
+        ? List<String>.from(jsonDecode(json['categoryJson']))
+        : [],
+    imagePath: json['imagePath'] ?? 'assets/images/comingsoon.jpg',
+    isUserAdded: json['isUserAdded'],
+  );
+}
 }

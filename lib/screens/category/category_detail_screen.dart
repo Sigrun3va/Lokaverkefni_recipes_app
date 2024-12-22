@@ -30,100 +30,116 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
   }
 
   Future<void> loadCategoryRecipes() async {
+  try {
     recipesForCategory = await RecipeService().loadRecipesByCategory(widget.categoryName);
-    setState(() {});
-  }
 
-  Widget loadImage(String imagePath) {
-    if (imagePath.isEmpty) {
-      return const Center(child: Icon(Icons.image, color: Colors.grey));
-    } else if (imagePath.startsWith('http') || imagePath.startsWith('https')) {
-      return Image.network(
-        imagePath,
-        width: double.infinity,
-        height: 200,
-        fit: BoxFit.cover,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return const Center(child: CircularProgressIndicator());
-        },
-        errorBuilder: (context, error, stackTrace) {
-          return const Center(child: Text('Failed to load network image'));
-        },
-      );
-    } else if (!imagePath.startsWith('assets')) {
-      // Assuming it's a local file path
-      return Image.file(
-        File(imagePath),
-        width: double.infinity,
-        height: 200,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) {
-          return const Center(child: Text('Failed to load file image'));
-        },
-      );
-    } else {
-      // Asset image
-      return Image.asset(
-        imagePath,
-        width: double.infinity,
-        height: 200,
-        fit: BoxFit.cover,
-        errorBuilder: (context, error, stackTrace) {
-          return const Center(child: Text('Failed to load asset image'));
-        },
+    if (recipesForCategory.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No recipes found for this category')),
       );
     }
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Failed to load recipes: $e')),
+    );
+  } finally {
+    setState(() {});
   }
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: widget.categoryName,
-        onBackTap: () {
-          Navigator.pop(context);
-        },
-      ),
-      backgroundColor: Colors.black,
-      body: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.7,
-        ),
-        itemCount: recipesForCategory.length,
-        itemBuilder: (context, index) {
-          final recipe = recipesForCategory[index];
-          Widget imageWidget = loadImage(recipe.imagePath);
+ Widget loadImage(String imagePath) {
+  if (imagePath.isEmpty || imagePath == 'default') {
+    return Image.asset(
+      'assets/images/comingsoon.jpg',
+      width: double.infinity,
+      height: 200,
+      fit: BoxFit.cover,
+    );
+  } else if (imagePath.startsWith('http') || imagePath.startsWith('https')) {
+    return Image.network(
+      imagePath,
+      width: double.infinity,
+      height: 200,
+      fit: BoxFit.cover,
+      loadingBuilder: (context, child, loadingProgress) {
+        if (loadingProgress == null) return child;
+        return const Center(child: CircularProgressIndicator());
+      },
+      errorBuilder: (context, error, stackTrace) {
+        return const Center(child: Text('Failed to load network image'));
+      },
+    );
+  } else if (File(imagePath).existsSync()) {
+    return Image.file(
+      File(imagePath),
+      width: double.infinity,
+      height: 200,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) {
+        return const Center(child: Text('Failed to load file image'));
+      },
+    );
+  } else {
+    return const Center(child: Text('Invalid image path'));
+  }
+}
 
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RecipeDetailsScreen(recipe: recipe),
+ @override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: CustomAppBar(
+      title: widget.categoryName,
+      onBackTap: () {
+        Navigator.pop(context);
+      },
+    ),
+    backgroundColor: Colors.black,
+    body: recipesForCategory.isEmpty
+        ? const Center(
+            child: Text(
+              'No recipes found for this category',
+              style: TextStyle(color: Colors.grey, fontSize: 18),
+            ),
+          )
+        : GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.7,
+            ),
+            itemCount: recipesForCategory.length,
+            itemBuilder: (context, index) {
+              final recipe = recipesForCategory[index];
+              Widget imageWidget = loadImage(recipe.imagePath);
+
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RecipeDetailsScreen(recipe: recipe),
+                    ),
+                  );
+                },
+                child: Card(
+                  color: const Color(0xFF181818),
+                  child: Column(
+                    children: [
+                      imageWidget,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          recipe.name,
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
-            child: Card(
-              color: const Color(0xFF181818),
-              child: Column(
-                children: [
-                  imageWidget,
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      recipe.name,
-                      style: const TextStyle(fontSize: 18, color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
+          ),
+  );
+}
 }
